@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.rammelbalagtas.finalproject.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_order_history"
+        android:name="com.rammelbalagtas.finalproject.ui.order_history.OrderHistoryFragment"
+        android:label="@string/title_order_history"
+        tools:layout="@layout/fragment_order_history" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.rammelbalagtas.finalproject.ui.notifications.NotificationsFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
+</navigation>
