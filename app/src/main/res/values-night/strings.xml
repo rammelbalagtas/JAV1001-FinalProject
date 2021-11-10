@@ -1,8 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FinalProject</string>
-    <string name="title_home">Home</string>
-    <string name="title_order_history">Order History</string>
-    <string name="title_account">Account</string>
     <string name="choose_an_option">Choose an option:</string>
     <string name="our_specialties">Our Specialties</string>
     <string name="build_your_own">Build Your Own</string>

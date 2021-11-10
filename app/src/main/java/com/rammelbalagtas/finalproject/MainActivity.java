@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
         // Set up bottom navigation toolbar based on navigation graph
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupActionBarWithNavController(this,
+                navController,
+                appBarConfiguration);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
 
