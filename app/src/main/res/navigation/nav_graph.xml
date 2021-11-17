@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.rammelbalagtas.finalproject.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_to_pizza_list"
+            app:destination="@id/specialPizzaListActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_order_history"
@@ -18,8 +22,15 @@
         tools:layout="@layout/fragment_order_history" />
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="com.rammelbalagtas.finalproject.ui.notifications.NotificationsFragment"
-        android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        android:id="@+id/specialPizzaListActivity"
+        android:name="com.rammelbalagtas.finalproject.ui.specialties.PizzaListFragment"
+        android:label="Pizza List">
+        <action
+            android:id="@+id/action_show_customize_pizza"
+            app:destination="@id/customizePizzaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customizePizzaFragment"
+        android:name="com.rammelbalagtas.finalproject.ui.customize_pizza.CustomizePizzaFragment"
+        android:label="Customize Pizza" />
 </navigation>

@@ -3,15 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/card_background.xml" value="0.24453125" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.14722222222222223" />
+        <entry key="app/src/main/res/drawable/ic_history_24dp.xml" value="0.24453125" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2537037037037037" />
+        <entry key="app/src/main/res/layout/activity_main_backup.xml" value="0.11875" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.20185185185185187" />
+        <entry key="app/src/main/res/layout/fragment_crust_item.xml" value="0.108984375" />
+        <entry key="app/src/main/res/layout/fragment_crust_item_list.xml" value="0.117578125" />
+        <entry key="app/src/main/res/layout/fragment_customize_pizza.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.21574074074074073" />
         <entry key="app/src/main/res/layout/fragment_order_history.xml" value="0.2537037037037037" />
+        <entry key="app/src/main/res/layout/fragment_pizza_choices.xml" value="0.21597222222222223" />
+        <entry key="app/src/main/res/layout/fragment_pizza_list_recycler_view.xml" value="0.12578125" />
+        <entry key="app/src/main/res/layout/fragment_pizzalist_recycler.xml" value="0.108984375" />
+        <entry key="app/src/main/res/layout/fragment_pizzalist_recyclerview.xml" value="0.108984375" />
+        <entry key="app/src/main/res/layout/fragment_sauce_recycler.xml" value="0.108984375" />
+        <entry key="app/src/main/res/layout/generic_item.xml" value="0.221484375" />
+        <entry key="app/src/main/res/layout/meat_item.xml" value="0.221484375" />
+        <entry key="app/src/main/res/layout/pizza_choices.xml" value="0.21597222222222223" />
+        <entry key="app/src/main/res/layout/pizza_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/pizzalist_item.xml" value="0.108984375" />
+        <entry key="app/src/main/res/layout/recycler_view.xml" value="0.1986111111111111" />
+        <entry key="app/src/main/res/layout/sauce_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/special_pizza_item.xml" value="0.1986111111111111" />
+        <entry key="app/src/main/res/layout/special_pizza_recycler_view.xml" value="0.12578125" />
+        <entry key="app/src/main/res/layout/test_layout.xml" value="0.221484375" />
         <entry key="app/src/main/res/layout/test_layout_test.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/layout/topping_item.xml" value="0.335" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2537037037037037" />
       </map>
     </option>

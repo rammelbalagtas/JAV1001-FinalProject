@@ -11,9 +11,4 @@
         android:icon="@drawable/ic_history_24dp"
         android:title="@string/title_order_history" />
 
-    <item
-        android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_account_circle_24dp"
-        android:title="@string/title_account" />
-
 </menu>

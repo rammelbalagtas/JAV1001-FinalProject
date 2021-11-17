@@ -8,4 +8,28 @@
     <string name="build_your_own">Build Your Own</string>
     <string name="build_your_own_pizza_content">Build your own pizza</string>
     <string name="specialties_content">Select from our list of specialties</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pizza_list_title">Pizza List</string>
+    <string name="header_sauce">Sauce</string>
+    <string name="header_meat">Meat</string>
+    <string name="header_veggies">Veggies</string>
+    <string name="generic_item_name">Generic Item Name</string>
+    <string name="pizza_image_content_desc">Pizza image</string>
+
+    <string-array name="pizza_size_array">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Extra Large</item>
+        <item>Supreme</item>
+    </string-array>
+
+    <string-array name="pizza_crust_array">
+        <item>Original Hand Tossed</item>
+        <item>Hand Tossed Thin</item>
+        <item>Crunchy Thin Crust</item>
+        <item>Gluten Free Crust</item>
+    </string-array>
+
 </resources>

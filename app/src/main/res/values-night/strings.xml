@@ -5,4 +5,9 @@
     <string name="build_your_own">Build Your Own</string>
     <string name="build_your_own_pizza_content">Build your own pizza</string>
     <string name="specialties_content">Select from our list of specialties</string>
+    <string name="header_sauce">Sauce</string>
+    <string name="header_meat">Meat</string>
+    <string name="header_veggies">Veggies</string>
+    <string name="generic_item_name">Generic Item Name</string>
+    <string name="pizza_image_content_desc">Pizza image</string>
 </resources>
