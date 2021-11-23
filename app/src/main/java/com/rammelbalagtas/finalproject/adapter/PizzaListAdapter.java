@@ -3,6 +3,7 @@ package com.rammelbalagtas.finalproject.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pizza_item, parent, false);
+                .inflate(R.layout.special_pizza_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -45,6 +46,27 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
         // contents of the view with that element
         viewholder.getTextName().setText(pizza.getName());
         viewholder.getTextDescription().setText(pizza.getDescription());
+        int imageResourceId;
+        switch (position) {
+            case 0:
+                imageResourceId = R.drawable.pizza1;
+                break;
+            case 1:
+                imageResourceId = R.drawable.pizza2;
+                break;
+            case 2:
+                imageResourceId = R.drawable.pizza3;
+                break;
+            case 3:
+                imageResourceId = R.drawable.pizza4;
+                break;
+            case 4:
+                imageResourceId = R.drawable.pizza5;
+                break;
+            default:
+                imageResourceId = 0;
+        }
+        viewholder.getPizzaImage().setImageResource(imageResourceId);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -61,11 +83,15 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
 
         private TextView textName;
         private TextView textDescription;
+        private ImageView pizzaImage;
 
         public ViewHolder(@NonNull View view) {
             super(view);
+
             textName = view.findViewById(R.id.text_special_pizza_name);
             textDescription = view.findViewById(R.id.text_special_pizza_description);
+            pizzaImage = view.findViewById(R.id.special_pizza_item_image);
+
             // Define click listener for the ViewHolder's View
             view.setOnClickListener(onClickPizza);
         }
@@ -76,13 +102,14 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
         public TextView getTextDescription() {
             return textDescription;
         }
+        public ImageView getPizzaImage() { return pizzaImage; }
 
         private View.OnClickListener onClickPizza = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = getLayoutPosition();
                 // navigate to next view
-                Navigation.findNavController(view).navigate(R.id.action_show_customize_pizza);
+                Navigation.findNavController(view).navigate(R.id.nav_specialpizza_to_customizepizza);
             }
         };
     }

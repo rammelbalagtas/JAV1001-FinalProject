@@ -10,4 +10,5 @@
     <string name="header_veggies">Veggies</string>
     <string name="generic_item_name">Generic Item Name</string>
     <string name="pizza_image_content_desc">Pizza image</string>
+    <string name="view_cart_menu_title">View Cart</string>
 </resources>

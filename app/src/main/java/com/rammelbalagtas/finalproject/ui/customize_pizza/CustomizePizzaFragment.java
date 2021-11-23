@@ -8,15 +8,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.adapter.ToppingsAdapter;
 import com.rammelbalagtas.finalproject.databinding.FragmentCustomizePizzaBinding;
+import com.rammelbalagtas.finalproject.models.Pizza;
+import com.rammelbalagtas.finalproject.models.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Topping.Meat;
 import com.rammelbalagtas.finalproject.models.Topping.Sauce;
 import com.rammelbalagtas.finalproject.models.Topping.Vegetable;
@@ -24,6 +29,10 @@ import com.rammelbalagtas.finalproject.models.Topping.Vegetable;
 import java.util.ArrayList;
 
 public class CustomizePizzaFragment extends Fragment {
+
+    private String viewMode;
+    private int orderId;
+    private Pizza currentPizza;
 
     private ToppingsAdapter<Sauce> sauceListAdapter;
     private ArrayList<Sauce> sauceList = new ArrayList<>();
@@ -39,21 +48,25 @@ public class CustomizePizzaFragment extends Fragment {
     private RecyclerView vegetableRecycler;
 
     private FragmentCustomizePizzaBinding binding;
+    private TextView quantityText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        currentPizza = new Pizza();
+
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server
-        sauceList.add(new Sauce("Sauce 1", "None"));
-        sauceList.add(new Sauce("Sauce 2", "None"));
-
-        meatList.add(new Meat("Meat 1", "None"));
-        meatList.add(new Meat("Meat 2", "None"));
-
-        vegetableList.add(new Vegetable("Veg 1", "None"));
-        vegetableList.add(new Vegetable("Veg 1", "None"));
+        for (String sauce : PizzaDataConfiguration.sauceTopping) {
+            sauceList.add(new Sauce(sauce, "None"));
+        }
+        for (String meat : PizzaDataConfiguration.meatTopping) {
+            meatList.add(new Meat(meat, "None"));
+        }
+        for (String vegetable : PizzaDataConfiguration.vegetableTopping) {
+            vegetableList.add(new Vegetable(vegetable, "None"));
+        }
 
     }
 
@@ -68,6 +81,7 @@ public class CustomizePizzaFragment extends Fragment {
         configureVegetableRecycler();
         configureSpinnerElements();
         setEventListeners();
+        quantityText = rootView.findViewById(R.id.text_pizza_qty);
         return rootView;
     }
 
@@ -111,16 +125,19 @@ public class CustomizePizzaFragment extends Fragment {
     }
 
     private void configureSpinnerElements() {
+
+        //Spinner values for pizza size
         Spinner pizzaSizeSpinner = rootView.findViewById(R.id.spinner_size);
-        ArrayAdapter<CharSequence> pizzaSizeAdapter = ArrayAdapter.createFromResource(rootView.getContext(),
-                R.array.pizza_size_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> pizzaSizeAdapter = new ArrayAdapter<>(rootView.getContext(),
+                android.R.layout.simple_spinner_item, PizzaDataConfiguration.pizzaSize);
         pizzaSizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaSizeSpinner.setAdapter(pizzaSizeAdapter);
         pizzaSizeSpinner.setOnItemSelectedListener(onSelectSize);
 
+        //Spinner values for pizza crust
         Spinner pizzaCrustSpinner = rootView.findViewById(R.id.spinner_crust);
-        ArrayAdapter<CharSequence> pizzaCrustAdapter = ArrayAdapter.createFromResource(rootView.getContext(),
-                R.array.pizza_crust_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> pizzaCrustAdapter = new ArrayAdapter<>(rootView.getContext(),
+                android.R.layout.simple_spinner_item, PizzaDataConfiguration.pizzaCrust);
         pizzaCrustAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaCrustSpinner.setAdapter(pizzaCrustAdapter);
         pizzaCrustSpinner.setOnItemSelectedListener(onSelectCrust);
@@ -129,26 +146,60 @@ public class CustomizePizzaFragment extends Fragment {
     private void setEventListeners() {
         Button btnAddToCart = rootView.findViewById(R.id.btn_add_to_cart);
         btnAddToCart.setOnClickListener(onClickAddToCart);
+
+        Button btnAddPizza = rootView.findViewById(R.id.btn_add_pizza);
+        btnAddPizza.setOnClickListener(onClickAddPizza);
+        Button btnLessPizza = rootView.findViewById(R.id.btn_less_pizza);
+        btnLessPizza.setOnClickListener(onClickLessPizza);
     }
 
-    private View.OnClickListener onClickAddToCart = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (sauceRecycler.getVisibility() == View.VISIBLE) {
-                sauceRecycler.setVisibility(View.GONE);
-            } else {
-                sauceRecycler.setVisibility(View.VISIBLE);
-            }
+    private final View.OnClickListener onClickAddToCart = view -> {
+
+        boolean isDataValid = validateData();
+        if (isDataValid) {
+            currentPizza.setSauceList(sauceList);
+            currentPizza.setMeatTopping(meatList);
+            currentPizza.setVegetableTopping(vegetableList);
+            currentPizza.setPrice(100.00);
+            Navigation.findNavController(view).navigate(R.id.nav_customizepizza_to_home);
+        } else {
+            return;
+        }
+    };
+
+    private boolean validateData() {
+        return true;
+    }
+
+    private final View.OnClickListener onClickAddPizza = view -> {
+        int quantity = currentPizza.getQuantity();
+        if (quantity == 10) {
+
+        } else {
+            quantity++;
+            currentPizza.setQuantity(quantity);
+            quantityText.setText(String.valueOf(quantity));
+        }
+    };
+
+    // Event listener for decrease quantity
+    private final View.OnClickListener onClickLessPizza = view -> {
+        int quantity = currentPizza.getQuantity();
+        if (quantity == 0) {
+
+        } else {
+            quantity--;
+            currentPizza.setQuantity(quantity);
+            quantityText.setText(String.valueOf(quantity));
         }
     };
 
     // Event listener when size is selected
-    private AdapterView.OnItemSelectedListener onSelectSize = new AdapterView.OnItemSelectedListener() {
+    private final AdapterView.OnItemSelectedListener onSelectSize = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            currentPizza.setSize(PizzaDataConfiguration.pizzaSize[position]);
         }
-
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
 
@@ -156,12 +207,11 @@ public class CustomizePizzaFragment extends Fragment {
     };
 
     // Event listener when size is selected
-    private AdapterView.OnItemSelectedListener onSelectCrust = new AdapterView.OnItemSelectedListener() {
+    private final AdapterView.OnItemSelectedListener onSelectCrust = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            currentPizza.setCrust(PizzaDataConfiguration.pizzaCrust[position]);
         }
-
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
 

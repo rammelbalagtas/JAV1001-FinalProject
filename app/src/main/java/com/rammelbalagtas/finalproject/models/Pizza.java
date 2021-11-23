@@ -10,32 +10,29 @@ public class Pizza {
 
     private String name;
     private String description;
-    private String dough;
     private String size;
+    private String crust;
+    private int quantity;
+    private double price;
 
-    private ArrayList<Sauce> sauceList = new ArrayList<Sauce>();
-    private ArrayList<Meat> meatTopping = new ArrayList<Meat>();
-    private ArrayList<Vegetable> vegetableTopping = new ArrayList<Vegetable>();
+    private ArrayList<Sauce> sauceList = new ArrayList<>();
+    private ArrayList<Meat> meatTopping = new ArrayList<>();
+    private ArrayList<Vegetable> vegetableTopping = new ArrayList<>();
 
-    public Pizza(String name, String description) {
+    public Pizza() {
+        // empty constructor
+    }
+
+    public Pizza(String name, String description, double price) {
         this.name = name;
         this.description = description;
+        this.price = price;
     }
 
-    public String getDough() {
-        return dough;
-    }
-
-    public void setDough(String dough) {
-        this.dough = dough;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
+    public Pizza(String name, String description, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -44,6 +41,22 @@ public class Pizza {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getCrust() {
+        return crust;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public ArrayList<Sauce> getSauceList() {
@@ -64,5 +77,33 @@ public class Pizza {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public void setCrust(String crust) {
+        this.crust = crust;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setSauceList(ArrayList<Sauce> sauceList) {
+        this.sauceList = sauceList;
+    }
+
+    public void setMeatTopping(ArrayList<Meat> meatTopping) {
+        this.meatTopping = meatTopping;
+    }
+
+    public void setVegetableTopping(ArrayList<Vegetable> vegetableTopping) {
+        this.vegetableTopping = vegetableTopping;
     }
 }

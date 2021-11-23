@@ -2,14 +2,16 @@ package com.rammelbalagtas.finalproject.models;
 
 import java.util.ArrayList;
 
-public class Cart {
+public class Order {
+    private int orderId;
+    private int orderStatus;
     private ArrayList<Pizza> pizzaList;
-    private double subTotal = 0.0;
-    private double total = 0.0;
-    private double tax = 0.0;
+    private double subTotal;
+    private double tax;
+    private double total;
 
-    public Cart() {
-
+    public Order(int orderId) {
+        this.orderId = orderId;
     }
 
     public void addPizza(Pizza pizza) {
@@ -24,5 +26,13 @@ public class Cart {
 
     private void computeTotal() {
 
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public int getOrderStatus() {
+        return orderStatus;
     }
 }

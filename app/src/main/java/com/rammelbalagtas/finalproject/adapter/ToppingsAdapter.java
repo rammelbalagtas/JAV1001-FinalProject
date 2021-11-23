@@ -9,10 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.rammelbalagtas.finalproject.R;
+import com.rammelbalagtas.finalproject.models.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Topping.Topping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<ToppingsAdapter<T>.ViewHolder> {
 
@@ -90,22 +93,36 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
                 Topping topping = toppingList.get(position);
                 // Get element from the dataset at this position and replace the
                 // contents of the view with that element
-                String toppingLevel = topping.getLevel();
-                topping.setLevel(toppingLevel);
-                textToppingLevel.setText(toppingLevel);
+                String currentTopping = topping.getLevel();
+                int index = Arrays.asList(PizzaDataConfiguration.toppingLevel).indexOf(currentTopping);
+                if (index == (PizzaDataConfiguration.toppingLevel.length - 1)) {
+                    //
+                } else {
+                    index++;
+                }
+                String newTopping = PizzaDataConfiguration.toppingLevel[index];
+                topping.setLevel(newTopping);
+                notifyItemChanged(position);
             }
         };
 
         private View.OnClickListener onClickLessTopping = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 int position = getLayoutPosition(); //starts with 0
                 Topping topping = toppingList.get(position);
                 // Get element from the dataset at this position and replace the
                 // contents of the view with that element
-                String toppingLevel = topping.getLevel();
-                topping.setLevel(toppingLevel);
-                textToppingLevel.setText(toppingLevel);
+                String currentTopping = topping.getLevel();
+                int index = Arrays.asList(PizzaDataConfiguration.toppingLevel).indexOf(currentTopping);
+                if (index == 0) {
+                    //
+                } else {
+                    index--;
+                }
+                String newTopping = PizzaDataConfiguration.toppingLevel[index];
+                topping.setLevel(newTopping);
+                notifyItemChanged(position);
             }
         };
     }

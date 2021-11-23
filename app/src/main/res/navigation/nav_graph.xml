@@ -11,8 +11,15 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_to_pizza_list"
-            app:destination="@id/specialPizzaListActivity" />
+            android:id="@+id/nav_home_to_specialpizza"
+            app:destination="@id/specialPizzaListActivity"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/nav_home_to_customizepizza"
+            app:destination="@id/customizePizzaFragment" />
+        <action
+            android:id="@+id/navigate_to_cart"
+            app:destination="@id/orderSummaryFragment" />
     </fragment>
 
     <fragment
@@ -23,14 +30,33 @@
 
     <fragment
         android:id="@+id/specialPizzaListActivity"
-        android:name="com.rammelbalagtas.finalproject.ui.specialties.PizzaListFragment"
+        android:name="com.rammelbalagtas.finalproject.ui.special_pizza.PizzaListFragment"
         android:label="Pizza List">
         <action
-            android:id="@+id/action_show_customize_pizza"
-            app:destination="@id/customizePizzaFragment" />
+            android:id="@+id/nav_specialpizza_to_customizepizza"
+            app:destination="@id/customizePizzaFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/navigate_to_cart"
+            app:destination="@id/orderSummaryFragment" />
     </fragment>
     <fragment
         android:id="@+id/customizePizzaFragment"
         android:name="com.rammelbalagtas.finalproject.ui.customize_pizza.CustomizePizzaFragment"
-        android:label="Customize Pizza" />
+        android:label="Customize Pizza" >
+        <action
+            android:id="@+id/nav_customizepizza_to_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/navigate_order_summary"
+            app:destination="@id/orderSummaryFragment" />
+        <action
+            android:id="@+id/action_customizePizzaFragment_to_orderSummaryFragment"
+            app:destination="@id/orderSummaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderSummaryFragment"
+        android:name="com.rammelbalagtas.finalproject.ui.order_summary.OrderSummaryFragment"
+        android:label="OrderSummaryFragment" />
 </navigation>

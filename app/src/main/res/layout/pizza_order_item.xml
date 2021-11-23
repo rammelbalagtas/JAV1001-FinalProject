@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_add_qty"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="+"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_deduct_qty"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/order_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Pizza Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pizza_order_topping"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="Toppings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/order_id"
+        app:layout_constraintTop_toBottomOf="@+id/order_id" />
+
+    <Button
+        android:id="@+id/btn_view_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Edit"
+        app:layout_constraintStart_toStartOf="@+id/pizza_order_topping"
+        app:layout_constraintTop_toBottomOf="@+id/pizza_order_topping" />
+
+    <Button
+        android:id="@+id/btn_cancel_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Remove"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_view_order"
+        app:layout_constraintStart_toEndOf="@+id/btn_view_order" />
+
+    <View
+        android:id="@+id/order_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_view_order" />
+
+    <TextView
+        android:id="@+id/pizza_order_qty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="10"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_deduct_qty"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add_qty"
+        app:layout_constraintTop_toTopOf="@+id/btn_deduct_qty" />
+
+    <Button
+        android:id="@+id/btn_deduct_qty"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:text="-"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_cancel_order"
+        app:layout_constraintEnd_toStartOf="@+id/pizza_order_qty" />
+</androidx.constraintlayout.widget.ConstraintLayout>

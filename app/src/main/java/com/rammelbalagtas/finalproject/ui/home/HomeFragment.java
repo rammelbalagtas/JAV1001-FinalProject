@@ -15,7 +15,6 @@ import com.rammelbalagtas.finalproject.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -26,9 +25,9 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         // Attach listeners to events
-        ImageView customPizza = root.findViewById(R.id.image_custom_pizza);
+        ImageView customPizza = binding.imageCustomPizza;
         customPizza.setOnClickListener(onClickCustomPizza);
-        ImageView specialPizza = root.findViewById(R.id.image_special_pizza);
+        ImageView specialPizza = binding.imageSpecialPizza;
         specialPizza.setOnClickListener(onClickSpecialPizza);
         return root;
     }
@@ -36,26 +35,20 @@ public class HomeFragment extends Fragment {
     /**
      * custom pizza onClick listener
      */
-    private View.OnClickListener onClickCustomPizza = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-//            Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_blankFragment);
-        }
+    private final View.OnClickListener onClickCustomPizza = view -> {
+        Navigation.findNavController(view).navigate(R.id.nav_home_to_customizepizza);
     };
 
     /**
      * special pizza onClick listener
      */
-    private View.OnClickListener onClickSpecialPizza = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Navigation.findNavController(view).navigate(R.id.action_to_pizza_list);
-        }
-    };
+    private final View.OnClickListener onClickSpecialPizza = view ->
+            Navigation.findNavController(view).navigate(R.id.nav_home_to_specialpizza);
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }
