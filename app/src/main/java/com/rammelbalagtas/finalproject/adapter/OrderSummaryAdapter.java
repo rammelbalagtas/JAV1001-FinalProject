@@ -9,26 +9,25 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rammelbalagtas.finalproject.R;
+import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.models.Pizza;
+import com.rammelbalagtas.finalproject.ui.order_summary.IOrderSummary;
+import com.rammelbalagtas.finalproject.ui.order_summary.OrderSummaryFragmentDirections;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapter.ViewHolder> {
 
+    private IOrderSummary delegate;
     private final ArrayList<Pizza> pizzaList;
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param pizzaList contains the data to populate views to be used
-     *                  by RecyclerView
-     */
-    public OrderSummaryAdapter(ArrayList<Pizza> pizzaList) {
+    public OrderSummaryAdapter(ArrayList<Pizza> pizzaList, IOrderSummary delegate) {
         this.pizzaList = pizzaList;
+        this.delegate = delegate;
     }
 
     // Create new views (invoked by the layout manager)
@@ -97,22 +96,24 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
             return pizzaQuantity;
         }
 
-        private View.OnClickListener onClickEdit = view -> {
-            int position = getLayoutPosition();
-            // navigate to next view
-            // Navigation.findNavController(view).navigate();
+        private final View.OnClickListener onClickEdit = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = getLayoutPosition();
+                // navigate to next view
+                Navigation.findNavController(view)
+                        .navigate(OrderSummaryFragmentDirections.actionNavOrderSummaryToCustomizePizza(DisplayMode.EDIT, position));
+            }
         };
 
-        private View.OnClickListener onClickRemove = view -> {
+        private final View.OnClickListener onClickRemove = view -> {
             new AlertDialog.Builder(view.getContext())
                     .setTitle("Remove Order Confirmation")
                     .setMessage("Do you really want to remove the item?")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            int position = getLayoutPosition();
-                            pizzaList.remove(position);
-                            notifyItemRemoved(position);
+                            delegate.remove(getLayoutPosition());
                         }
                     })
                     .setNegativeButton(android.R.string.no, null).show();
@@ -126,7 +127,6 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
             int position = getLayoutPosition();
 
         };
-
 
     }
 }

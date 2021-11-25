@@ -11,4 +11,10 @@
     <string name="generic_item_name">Generic Item Name</string>
     <string name="pizza_image_content_desc">Pizza image</string>
     <string name="view_cart_menu_title">View Cart</string>
+    <string name="build_your_own_text">Build Your Own</string>
+    <string name="items_header">Your Items:</string>
+    <string name="subtotal_label">Subtotal:</string>
+    <string name="tax_label">Tax:</string>
+    <string name="checkout_text">Checkout</string>
+    <string name="total_label">Total:</string>
 </resources>

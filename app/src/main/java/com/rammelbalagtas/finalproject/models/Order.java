@@ -1,10 +1,11 @@
 package com.rammelbalagtas.finalproject.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
     private int orderId;
-    private int orderStatus;
+    private String orderStatus;
     private ArrayList<Pizza> pizzaList;
     private double subTotal;
     private double tax;
@@ -24,15 +25,47 @@ public class Order {
         computeTotal();
     }
 
+    public ArrayList<Pizza> getPizzaList() {
+        return pizzaList;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setPizzaList(ArrayList<Pizza> pizzaList) {
+        this.pizzaList = pizzaList;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     private void computeTotal() {
 
     }
 
-    public int getOrderId() {
-        return orderId;
+    public double getSubTotal() {
+        return subTotal;
     }
 
-    public int getOrderStatus() {
-        return orderStatus;
+    public double getTax() {
+        return tax;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public int getOrderId() {
+        return orderId;
     }
 }

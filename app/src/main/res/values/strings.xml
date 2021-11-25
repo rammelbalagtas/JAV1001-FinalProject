@@ -8,7 +8,6 @@
     <string name="build_your_own">Build Your Own</string>
     <string name="build_your_own_pizza_content">Build your own pizza</string>
     <string name="specialties_content">Select from our list of specialties</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pizza_list_title">Pizza List</string>
     <string name="header_sauce">Sauce</string>
@@ -17,5 +16,11 @@
     <string name="generic_item_name">Generic Item Name</string>
     <string name="pizza_image_content_desc">Pizza image</string>
     <string name="view_cart_menu_title">View Cart</string>
+    <string name="build_your_own_text">Build Your Own</string>
+    <string name="items_header">Your Items:</string>
+    <string name="subtotal_label">Subtotal:</string>
+    <string name="tax_label">Tax:</string>
+    <string name="checkout_text">Checkout</string>
+    <string name="total_label">Total:</string>
 
 </resources>

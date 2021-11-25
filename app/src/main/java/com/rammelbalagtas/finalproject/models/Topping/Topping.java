@@ -1,6 +1,8 @@
 package com.rammelbalagtas.finalproject.models.Topping;
 
-public class Topping {
+import java.io.Serializable;
+
+public class Topping implements Serializable {
     private String type;
     private String name;
     private String level;

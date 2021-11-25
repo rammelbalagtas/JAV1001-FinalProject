@@ -1,6 +1,8 @@
 package com.rammelbalagtas.finalproject.models.Topping;
 
-public class Meat extends Topping {
+import java.io.Serializable;
+
+public class Meat extends Topping implements Serializable {
     public Meat(String name, String level) {
         super("Meat", name, level);
     }

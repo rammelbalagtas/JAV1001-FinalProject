@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.models.Pizza;
+import com.rammelbalagtas.finalproject.ui.special_pizza.PizzaListFragmentDirections;
 
 import java.util.ArrayList;
 
@@ -104,12 +106,13 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
         }
         public ImageView getPizzaImage() { return pizzaImage; }
 
-        private View.OnClickListener onClickPizza = new View.OnClickListener() {
+        private final View.OnClickListener onClickPizza = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = getLayoutPosition();
                 // navigate to next view
-                Navigation.findNavController(view).navigate(R.id.nav_specialpizza_to_customizepizza);
+                Navigation.findNavController(view)
+                        .navigate(PizzaListFragmentDirections.actionNavSpecialsToCustomizePizza(pizzaList.get(position).getName(), DisplayMode.NEW));
             }
         };
     }

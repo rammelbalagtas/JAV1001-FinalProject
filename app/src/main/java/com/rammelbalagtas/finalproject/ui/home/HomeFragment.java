@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.databinding.FragmentHomeBinding;
 
@@ -35,15 +36,20 @@ public class HomeFragment extends Fragment {
     /**
      * custom pizza onClick listener
      */
-    private final View.OnClickListener onClickCustomPizza = view -> {
-        Navigation.findNavController(view).navigate(R.id.nav_home_to_customizepizza);
+    private final View.OnClickListener onClickCustomPizza = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Navigation.findNavController(view)
+                    .navigate(HomeFragmentDirections.
+                            actionNavHomeToCustomizePizza(getResources().getString(R.string.build_your_own), DisplayMode.NEW));
+        }
     };
 
     /**
      * special pizza onClick listener
      */
     private final View.OnClickListener onClickSpecialPizza = view ->
-            Navigation.findNavController(view).navigate(R.id.nav_home_to_specialpizza);
+            Navigation.findNavController(view).navigate(R.id.action_nav_home_to_special_pizza);
 
     @Override
     public void onDestroyView() {

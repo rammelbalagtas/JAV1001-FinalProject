@@ -9,9 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.rammelbalagtas.finalproject.R;
-import com.rammelbalagtas.finalproject.models.PizzaDataConfiguration;
+import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Topping.Topping;
 
 import java.util.ArrayList;

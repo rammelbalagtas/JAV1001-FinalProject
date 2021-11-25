@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/order_summary_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,15 +18,111 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/text_orderid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Order ID: 1611"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/label_header_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/items_header"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_orderid"
+                app:layout_constraintTop_toBottomOf="@+id/text_orderid" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pizza_order_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_header_order">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/pizza_order_recycler_view">
+
+                <TextView
+                    android:id="@+id/label_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/subtotal_label"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/text_subtotal"
+                    app:layout_constraintEnd_toStartOf="@+id/text_subtotal" />
+
+                <TextView
+                    android:id="@+id/label_tax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tax_label"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/text_tax"
+                    app:layout_constraintStart_toStartOf="@+id/label_subtotal" />
+
+                <TextView
+                    android:id="@+id/label_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_label"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/text_total"
+                    app:layout_constraintStart_toStartOf="@+id/label_tax" />
+
+                <Button
+                    android:id="@+id/btn_checkout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/checkout_text"
+                    app:layout_constraintEnd_toEndOf="@+id/text_total"
+                    app:layout_constraintTop_toBottomOf="@+id/text_total" />
+
+                <TextView
+                    android:id="@+id/text_subtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    tools:text="$100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_tax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    tools:text="$13"
+                    app:layout_constraintEnd_toEndOf="@+id/text_subtotal"
+                    app:layout_constraintTop_toBottomOf="@+id/text_subtotal" />
+
+                <TextView
+                    android:id="@+id/text_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    tools:text="$113"
+                    app:layout_constraintEnd_toEndOf="@+id/text_tax"
+                    app:layout_constraintTop_toBottomOf="@+id/text_tax" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

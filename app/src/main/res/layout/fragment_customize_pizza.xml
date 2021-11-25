@@ -27,6 +27,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_pizza_name" />
 
             <TextView
+                android:id="@+id/text_pizza_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Pizza Name"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/label_pizza_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,54 +134,52 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <Button
-                android:id="@+id/btn_add_to_cart"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Add"
-                app:icon="@drawable/ic_add_shopping_cart_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/veggie_recycler_view" />
-
-            <Button
-                android:id="@+id/btn_add_pizza"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="24dp"
-                android:text="+"
-                app:layout_constraintBaseline_toBaselineOf="@+id/btn_add_to_cart"
-                app:layout_constraintEnd_toStartOf="@+id/btn_add_to_cart" />
-
-            <Button
-                android:id="@+id/btn_less_pizza"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="28dp"
-                android:text="-"
-                app:layout_constraintBaseline_toBaselineOf="@+id/text_pizza_qty"
-                app:layout_constraintEnd_toStartOf="@+id/text_pizza_qty" />
-
-            <TextView
-                android:id="@+id/text_pizza_qty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="0"
-                app:layout_constraintBaseline_toBaselineOf="@+id/btn_add_pizza"
-                app:layout_constraintEnd_toStartOf="@+id/btn_add_pizza" />
-
-            <TextView
-                android:id="@+id/text_pizza_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Pizza Name"
-                android:textSize="20dp"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/veggie_recycler_view">
+
+                <TextView
+                    android:id="@+id/label_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Quantity" />
+
+                <Button
+                    android:id="@+id/btn_less_pizza"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/text_pizza_qty"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btn_add_pizza"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="+"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/btn_less_pizza" />
+
+                <Button
+                    android:id="@+id/btn_add_to_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add"
+                    app:icon="@drawable/ic_add_shopping_cart_24" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

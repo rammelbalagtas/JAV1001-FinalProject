@@ -1,17 +1,15 @@
 package com.rammelbalagtas.finalproject;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
+import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.models.Cart;
+import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -65,7 +63,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayCart() {
-        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.navigate_to_cart);
+        Cart cart = DataPersistence.getCartSF(getApplicationContext());
+        if (cart.getPizzaList().size() == 0) {
+
+        } else {
+            Navigation.findNavController(this, R.id.nav_host_fragment).
+                    navigate(HomeFragmentDirections.actionNavHomeToOrderSummary(null));
+        }
     }
 
     // Need to be implemented to support navigate back functionality
@@ -74,31 +78,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    public static void saveSharedPreferences(Cart cart, @NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = gson.toJson(cart);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("SharedObject", json);
-//        editor.commit();
-        editor.apply();
-    }
-
-    public static void saveCart(Cart cart, @NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = gson.toJson(cart);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Cart", json);
-        editor.apply();
-    }
-
-    public static Cart getSharedPreferences(@NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("SharedObject", "null");
-        return gson.fromJson(json, Cart.class);
     }
 }

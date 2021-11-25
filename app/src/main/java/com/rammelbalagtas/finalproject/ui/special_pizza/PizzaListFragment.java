@@ -14,6 +14,7 @@ import com.rammelbalagtas.finalproject.databinding.FragmentSpecialPizzaBinding;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.adapter.PizzaListAdapter;
+import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 
 import java.util.ArrayList;
 
@@ -29,12 +30,7 @@ public class PizzaListFragment extends Fragment {
     }
 
     private void setInitialData() {
-        // create dummy data
-        pizzaList.add(new Pizza("Tuscan Pesto", "Pesto Sauce, Grilled Chicken, Roasted Red Peppers", 10.0));
-        pizzaList.add(new Pizza("Veggie", "Fresh Mushroom, Green Peppers, Spanish Onions", 12.0));
-        pizzaList.add(new Pizza("Super Hawaiian", "Smoked Ham, Pineapple, Bacon", 14.0));
-        pizzaList.add(new Pizza("Meat Supreme", "Pepperoni, Bacon, Ground Beef, Spicy Sauce", 16.0));
-        pizzaList.add(new Pizza("Deluxe", "Pepperoni, Fresh Mushrooms, Green Peppers, Bacon, Sliced Tomatoes", 18.0));
+        for (Pizza pizza: PizzaDataConfiguration.pizzaSpecials) pizzaList.add(pizza);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

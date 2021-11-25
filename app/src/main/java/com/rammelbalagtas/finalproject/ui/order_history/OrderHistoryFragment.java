@@ -14,13 +14,15 @@ import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.adapter.OrderListAdapter;
 import com.rammelbalagtas.finalproject.adapter.OrderSummaryAdapter;
 import com.rammelbalagtas.finalproject.databinding.FragmentOrderHistoryBinding;
+import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.models.Order;
+import com.rammelbalagtas.finalproject.models.OrderList;
 
 import java.util.ArrayList;
 
 public class OrderHistoryFragment extends Fragment {
 
-    private final ArrayList<Order> orderList = new ArrayList<Order>();
+    private OrderList orderList;
     private FragmentOrderHistoryBinding binding;
 
     @Override
@@ -41,7 +43,7 @@ public class OrderHistoryFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         recycler.setLayoutManager(layoutManager);
         // Create list adapter
-        recycler.setAdapter(new OrderListAdapter(orderList));
+        recycler.setAdapter(new OrderListAdapter(orderList.getOrders()));
         return rootView;
     }
 
@@ -52,11 +54,13 @@ public class OrderHistoryFragment extends Fragment {
     }
 
     private void setInitialData() {
-        // create dummy data
-        orderList.add(new Order(1234));
-        orderList.add(new Order(1234));
-        orderList.add(new Order(1234));
-        orderList.add(new Order(1234));
-        orderList.add(new Order(1234));
+        // Extract data from shared preferences
+        orderList = DataPersistence.getOrderListSF(getContext());
+
+        // create dummy data (for testing only)
+        orderList.addOrder(new Order(1234));
+        orderList.addOrder(new Order(1234));
+        orderList.addOrder(new Order(1234));
+        orderList.addOrder(new Order(1234));
     }
 }

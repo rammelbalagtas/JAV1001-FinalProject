@@ -10,11 +10,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rammelbalagtas.finalproject.MainActivity;
 import com.rammelbalagtas.finalproject.R;
+import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.models.Order;
+import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
+import com.rammelbalagtas.finalproject.ui.order_history.OrderHistoryFragmentDirections;
 
 import java.util.ArrayList;
 
@@ -66,7 +70,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         private View.OnClickListener onClickView = view -> {
             int position = getLayoutPosition();
             // navigate to next view
-            // Navigation.findNavController(view).navigate();
+            Navigation.findNavController(view).
+                    navigate(OrderHistoryFragmentDirections.actionNavOrderHistoryToOrderSummary(orderList.get(position)));
+
         };
 
         private View.OnClickListener onClickCancel = view -> {
