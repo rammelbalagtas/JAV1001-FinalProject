@@ -17,17 +17,22 @@ import com.rammelbalagtas.finalproject.MainActivity;
 import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.models.Order;
+import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
+import com.rammelbalagtas.finalproject.ui.order_history.IOrderList;
 import com.rammelbalagtas.finalproject.ui.order_history.OrderHistoryFragmentDirections;
+import com.rammelbalagtas.finalproject.ui.order_summary.IOrderSummary;
 
 import java.util.ArrayList;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder> {
 
     private final ArrayList<Order> orderList;
+    private IOrderList delegate;
 
-    public OrderListAdapter(ArrayList<Order> orderList) {
+    public OrderListAdapter(ArrayList<Order> orderList, IOrderList delegate) {
         this.orderList = orderList;
+        this.delegate = delegate;
     }
 
     @NonNull
@@ -68,23 +73,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         }
 
         private View.OnClickListener onClickView = view -> {
-            int position = getLayoutPosition();
-            // navigate to next view
-            Navigation.findNavController(view).
-                    navigate(OrderHistoryFragmentDirections.actionNavOrderHistoryToOrderSummary(orderList.get(position)));
-
+            delegate.edit(getLayoutPosition());
         };
 
         private View.OnClickListener onClickCancel = view -> {
             new AlertDialog.Builder(view.getContext())
-                    .setTitle("Cancel Order Confirmation")
+                    .setTitle("Remove Order Confirmation")
                     .setMessage("Do you really want to cancel the order?")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            int position = getLayoutPosition();
-                            orderList.remove(position);
-                            notifyItemRemoved(position);
+                            delegate.remove(getLayoutPosition());
                         }
                     })
                     .setNegativeButton(android.R.string.no, null).show();

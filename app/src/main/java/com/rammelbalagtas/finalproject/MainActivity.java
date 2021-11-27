@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.models.Cart;
 import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayCart() {
         Cart cart = DataPersistence.getCartSF(getApplicationContext());
         if (cart.getPizzaList().size() == 0) {
-
+            Toast.makeText(getApplicationContext(), "Your cart is currently empty", Toast.LENGTH_SHORT).show();
         } else {
             Navigation.findNavController(this, R.id.nav_host_fragment).
                     navigate(HomeFragmentDirections.actionNavHomeToOrderSummary(null));

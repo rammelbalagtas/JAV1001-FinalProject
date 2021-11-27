@@ -25,9 +25,10 @@
                 android:name="argMode"
                 app:argType="com.rammelbalagtas.finalproject.helper.DisplayMode" />
             <argument
-                android:name="argItemNo"
-                android:defaultValue="0"
-                app:argType="integer" />
+                android:name="argPizzaObject"
+                app:argType="com.rammelbalagtas.finalproject.models.Pizza"
+                app:nullable="true"
+                android:defaultValue="@null"/>
         </action>
         <action
             android:id="@+id/action_nav_home_to_order_summary"
@@ -65,6 +66,11 @@
                 android:name="argItemNo"
                 android:defaultValue="0"
                 app:argType="integer" />
+            <argument
+                android:name="argPizzaObject"
+                app:argType="com.rammelbalagtas.finalproject.models.Pizza"
+                app:nullable="true"
+                android:defaultValue="@null"/>
         </action>
         <action
             android:id="@+id/action_nav_home_to_order_summary"
@@ -82,8 +88,12 @@
             android:name="argMode"
             app:argType="com.rammelbalagtas.finalproject.helper.DisplayMode" />
         <argument
-            android:name="argItemNo"
-            app:argType="integer" />
+            android:name="argPizzaPrice"
+            app:argType="float" />
+        <argument
+            android:name="argPizzaObject"
+            app:argType="com.rammelbalagtas.finalproject.models.Pizza"
+            app:nullable="true" />
         <action
             android:id="@+id/action_nav_customize_pizza_to_home"
             app:destination="@id/navigation_home"
@@ -112,15 +122,13 @@
                 android:defaultValue=""
                 app:argType="string" />
             <argument
+                android:name="argPizzaPrice"
+                android:defaultValue="0.0"
+                app:argType="float" />
+            <argument
                 android:name="argMode"
                 app:argType="com.rammelbalagtas.finalproject.helper.DisplayMode" />
-            <argument
-                android:name="argItemNo"
-                app:argType="integer" />
         </action>
-        <action
-            android:id="@+id/action_order_summary_fragment_to_customize_pizza_fragment"
-            app:destination="@id/customize_pizza_fragment" />
     </fragment>
 </navigation>
 

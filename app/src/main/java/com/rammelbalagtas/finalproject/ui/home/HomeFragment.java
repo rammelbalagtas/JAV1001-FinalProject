@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.databinding.FragmentHomeBinding;
+import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 
 public class HomeFragment extends Fragment {
 
@@ -41,7 +42,7 @@ public class HomeFragment extends Fragment {
         public void onClick(View view) {
             Navigation.findNavController(view)
                     .navigate(HomeFragmentDirections.
-                            actionNavHomeToCustomizePizza(getResources().getString(R.string.build_your_own), DisplayMode.NEW));
+                            actionNavHomeToCustomizePizza(getResources().getString(R.string.build_your_own), DisplayMode.NEW, (float) PizzaDataConfiguration.pizzaBasePrice));
         }
     };
 

@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapter.ViewHolder> {
 
-    private IOrderSummary delegate;
     private final ArrayList<Pizza> pizzaList;
+    private IOrderSummary delegate;
 
     public OrderSummaryAdapter(ArrayList<Pizza> pizzaList, IOrderSummary delegate) {
         this.pizzaList = pizzaList;
@@ -99,10 +99,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         private final View.OnClickListener onClickEdit = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = getLayoutPosition();
-                // navigate to next view
-                Navigation.findNavController(view)
-                        .navigate(OrderSummaryFragmentDirections.actionNavOrderSummaryToCustomizePizza(DisplayMode.EDIT, position));
+                delegate.edit(getLayoutPosition());
             }
         };
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.R;
+import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.ui.special_pizza.PizzaListFragmentDirections;
 
@@ -112,7 +113,9 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
                 int position = getLayoutPosition();
                 // navigate to next view
                 Navigation.findNavController(view)
-                        .navigate(PizzaListFragmentDirections.actionNavSpecialsToCustomizePizza(pizzaList.get(position).getName(), DisplayMode.NEW));
+                        .navigate(PizzaListFragmentDirections.
+                                actionNavSpecialsToCustomizePizza
+                                        (pizzaList.get(position).getName(), DisplayMode.NEW, (float) PizzaDataConfiguration.pizzaSpecials[1].getPrice()));
             }
         };
     }

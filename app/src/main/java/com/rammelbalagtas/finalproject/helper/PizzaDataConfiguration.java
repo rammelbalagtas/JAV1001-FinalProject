@@ -13,21 +13,21 @@ public class PizzaDataConfiguration {
     public static final String[] sauceTopping =
             {"BBQ Sauce", "Alfredo Sauce", "Hearty Marinara Sauce", "Ranch Dressing", "Garlic Parmesan"};
     public static final String[] meatTopping =
-            {"Pepperoni", "Sauce", "Beef", "Ham", "Bacon", "Chicken"};
+            {"Pepperoni", "Prawn", "Beef", "Ham", "Bacon", "Chicken"};
     public static final String[] vegetableTopping =
             {"Black Olives", "Green Olives", "Green Pepper", "Mushroom", "Pineapple", "Onion", "Tomatoes",
                     "Jalapeno Peppers", "Baby Spinach"};
     public static final Pizza[] pizzaSpecials =
             {
-                    new Pizza("Tuscan Pesto", "Pesto Sauce, Grilled Chicken, Roasted Red Peppers", 10.0),
-                    new Pizza("Veggie", "Fresh Mushroom, Green Peppers, Spanish Onions", 12.0),
-                    new Pizza("Super Hawaiian", "Smoked Ham, Pineapple, Bacon", 14.0),
-                    new Pizza("Meat Supreme", "Pepperoni, Bacon, Ground Beef, Spicy Sauce", 16.0),
-                    new Pizza("Deluxe", "Pepperoni, Fresh Mushrooms, Green Peppers, Bacon, Sliced Tomatoes", 18.0)
+                    new Pizza("Tuscan Pesto", "Pesto Sauce, Grilled Chicken, Roasted Red Peppers", 12.0),
+                    new Pizza("Veggie", "Fresh Mushroom, Green Peppers, Spanish Onions", 14.0),
+                    new Pizza("Super Hawaiian", "Smoked Ham, Pineapple, Bacon", 16.0),
+                    new Pizza("Meat Supreme", "Pepperoni, Bacon, Ground Beef, Spicy Sauce", 18.0),
+                    new Pizza("Deluxe", "Pepperoni, Fresh Mushrooms, Green Peppers, Bacon, Sliced Tomatoes", 20.0)
             };
 
-    static {
-
-    }
+    public static final int maxPizzaQuantity = 10;
+    public static final int minPizzaQuantity = 1;
+    public static final double pizzaBasePrice = 10.0;
 
 }

@@ -19,6 +19,15 @@ public class Cart {
     public ArrayList<Pizza> getPizzaList() {
         return pizzaList;
     }
+    public double getSubTotal() {
+        return subTotal;
+    }
+    public double getTax() {
+        return tax;
+    }
+    public double getTotal() {
+        return total;
+    }
 
     public void addPizza(Pizza pizza) {
         pizzaList.add(pizza);
@@ -32,21 +41,9 @@ public class Cart {
 
     private void computeTotal() {
         for (Pizza pizza: pizzaList) {
-            subTotal += pizza.getPrice();
+            subTotal += (pizza.getPrice() * pizza.getQuantity());
         }
         tax = subTotal * taxRate;
         total = subTotal + tax;
-    }
-
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public double getTax() {
-        return tax;
-    }
-
-    public double getTotal() {
-        return total;
     }
 }

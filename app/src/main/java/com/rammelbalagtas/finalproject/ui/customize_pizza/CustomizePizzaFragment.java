@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,14 +29,13 @@ import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Topping.Meat;
 import com.rammelbalagtas.finalproject.models.Topping.Sauce;
 import com.rammelbalagtas.finalproject.models.Topping.Vegetable;
-import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CustomizePizzaFragment extends Fragment {
 
     private DisplayMode displayMode;
-    private int orderId;
     private Pizza currentPizza;
 
     private ToppingsAdapter<Sauce> sauceListAdapter;
@@ -55,22 +55,27 @@ public class CustomizePizzaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize dataset, this data would usually come from a local content provider or
-        // remote server
-        currentPizza = new Pizza();
-        currentPizza.setName(CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaName());
         displayMode = CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgMode();
 
-        for (String sauce : PizzaDataConfiguration.sauceTopping) {
-            sauceList.add(new Sauce(sauce, "None"));
+        if (displayMode.equals(DisplayMode.NEW)) {
+            currentPizza = new Pizza();
+            currentPizza.setName(CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaName());
+            currentPizza.setPrice(CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaPrice());
+            for (String sauce : PizzaDataConfiguration.sauceTopping) {
+                sauceList.add(new Sauce(sauce, "None"));
+            }
+            for (String meat : PizzaDataConfiguration.meatTopping) {
+                meatList.add(new Meat(meat, "None"));
+            }
+            for (String vegetable : PizzaDataConfiguration.vegetableTopping) {
+                vegetableList.add(new Vegetable(vegetable, "None"));
+            }
+        } else {
+            currentPizza = CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaObject();
+            sauceList = currentPizza.getSauceList();
+            meatList = currentPizza.getMeatList();
+            vegetableList = currentPizza.getVegetableList();
         }
-        for (String meat : PizzaDataConfiguration.meatTopping) {
-            meatList.add(new Meat(meat, "None"));
-        }
-        for (String vegetable : PizzaDataConfiguration.vegetableTopping) {
-            vegetableList.add(new Vegetable(vegetable, "None"));
-        }
-
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -89,7 +94,7 @@ public class CustomizePizzaFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        quantityText = binding.textPizzaName;
+        quantityText = binding.textPizzaQty;
         binding.textPizzaName.setText(currentPizza.getName());
     }
 
@@ -162,12 +167,10 @@ public class CustomizePizzaFragment extends Fragment {
 
     private final View.OnClickListener onClickAddToCart = view -> {
 
-        boolean isDataValid = validateData();
-        if (isDataValid) {
+        if (isDataValid()) {
             currentPizza.setSauceList(sauceList);
             currentPizza.setMeatList(meatList);
             currentPizza.setVegetableList(vegetableList);
-            currentPizza.setPrice(100.00);
             Cart cart = DataPersistence.getCartSF(getContext());
             cart.addPizza(currentPizza);
             DataPersistence.saveCartSF(cart, getContext());
@@ -177,14 +180,50 @@ public class CustomizePizzaFragment extends Fragment {
         }
     };
 
-    private boolean validateData() {
+    private boolean isDataValid() {
+
+        boolean hasSauce = false, hasMeat = false, hasVegetable = false;
+
+        for (Sauce sauce : sauceList) {
+            if (!sauce.getLevel().equals("None")) {
+                hasSauce = true;
+                break;
+            }
+        }
+
+        if (!hasSauce) {
+            Toast.makeText(getContext(), "Please add at least one sauce", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            for (Meat meat : meatList) {
+                if (!meat.getLevel().equals("None")) {
+                    hasMeat = true;
+                    break;
+                }
+            }
+            if (!hasMeat) {
+                for (Vegetable vegetable : vegetableList) {
+                    if (!vegetable.getLevel().equals("None")) {
+                        hasVegetable = true;
+                        break;
+                    }
+                }
+
+                if (!hasVegetable) {
+                    Toast.makeText(getContext(), "Please add at lease one meat and/or vegetable", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        }
         return true;
     }
 
     private final View.OnClickListener onClickAddPizza = view -> {
         int quantity = currentPizza.getQuantity();
-        if (quantity == 10) {
-
+        if (quantity == PizzaDataConfiguration.maxPizzaQuantity) {
+            Toast.makeText(getContext(), "Maximum of 10 pizza per order", Toast.LENGTH_SHORT).show();
         } else {
             quantity++;
             currentPizza.setQuantity(quantity);
@@ -195,8 +234,8 @@ public class CustomizePizzaFragment extends Fragment {
     // Event listener for decrease quantity
     private final View.OnClickListener onClickLessPizza = view -> {
         int quantity = currentPizza.getQuantity();
-        if (quantity == 0) {
-
+        if (quantity == PizzaDataConfiguration.minPizzaQuantity) {
+            Toast.makeText(getContext(), "A minimum of 1 pizza item is allowed", Toast.LENGTH_SHORT).show();
         } else {
             quantity--;
             currentPizza.setQuantity(quantity);
@@ -208,11 +247,16 @@ public class CustomizePizzaFragment extends Fragment {
     private final AdapterView.OnItemSelectedListener onSelectSize = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            currentPizza.setSize(PizzaDataConfiguration.pizzaSize[position]);
+            if (displayMode.equals(DisplayMode.NEW)) {
+                currentPizza.setSize(PizzaDataConfiguration.pizzaSize[position]);
+            } else {
+                parent.setSelection(Arrays.asList(PizzaDataConfiguration.pizzaSize).
+                        indexOf(currentPizza.getSize()));
+            }
         }
+
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
         }
     };
 
@@ -220,11 +264,21 @@ public class CustomizePizzaFragment extends Fragment {
     private final AdapterView.OnItemSelectedListener onSelectCrust = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            currentPizza.setCrust(PizzaDataConfiguration.pizzaCrust[position]);
+            if (displayMode.equals(DisplayMode.NEW)) {
+                currentPizza.setCrust(PizzaDataConfiguration.pizzaCrust[position]);
+            } else {
+                parent.setSelection(Arrays.asList(PizzaDataConfiguration.pizzaCrust).
+                        indexOf(currentPizza.getCrust()));
+            }
         }
+
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
         }
     };
 }
+
+//TODO: Finalize layout for customize pizza screen
+//TODO: Dynamically change add to cart button. ADD for new order and UPDATE for existing order
+//TODO: Set initial quantity to 1
+
