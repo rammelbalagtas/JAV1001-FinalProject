@@ -1,6 +1,11 @@
 package com.rammelbalagtas.finalproject.helper;
 
 import com.rammelbalagtas.finalproject.models.Pizza;
+import com.rammelbalagtas.finalproject.models.Topping.Meat;
+import com.rammelbalagtas.finalproject.models.Topping.Sauce;
+import com.rammelbalagtas.finalproject.models.Topping.Vegetable;
+
+import java.util.Random;
 
 public class PizzaDataConfiguration {
 
@@ -30,4 +35,40 @@ public class PizzaDataConfiguration {
     public static final int minPizzaQuantity = 1;
     public static final double pizzaBasePrice = 10.0;
 
+    public static int generateOrderId() {
+        Random rand = new Random(); //instance of random class
+        return rand.nextInt(99999);
+    }
+
+    public static String buildToppingDescription(Pizza pizza) {
+        String description = "";
+
+        description = "Sauce: ";
+        for (Sauce sauce : pizza.getSauceList()) {
+            if (!sauce.getLevel().equals("None")) {
+                description = description + " " + sauce.getName();
+            }
+        }
+
+        String meatText = "";
+        for (Meat meat : pizza.getMeatList()) {
+            if (!meat.getLevel().equals("None")) {
+                meatText = meatText + " " + meat.getName();
+            }
+        }
+        if (!meatText.equals("")) {
+            description = description + "\nMeat: " + meatText;
+        }
+
+        String vegetableText = "";
+        for (Vegetable vegetable : pizza.getVegetableList()) {
+            if (!vegetable.getLevel().equals("None")) {
+                vegetableText = vegetableText + " " + vegetable.getName();
+            }
+        }
+        if (!vegetableText.equals("")) {
+            description = description + "\nVegetable: " + vegetableText;
+        }
+        return description;
+    }
 }

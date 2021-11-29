@@ -10,50 +10,50 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
-        android:text="+"
+        android:text="@string/btn_plus_sign"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_deduct_qty"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/order_id"
-        android:layout_width="0dp"
+        android:id="@+id/pizza_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Pizza Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pizza Name" />
 
     <TextView
-        android:id="@+id/pizza_order_topping"
+        android:id="@+id/topping_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Toppings"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/order_id"
-        app:layout_constraintTop_toBottomOf="@+id/order_id" />
+        app:layout_constraintStart_toStartOf="@+id/pizza_name"
+        app:layout_constraintTop_toBottomOf="@+id/pizza_name"
+        tools:text="Toppings" />
 
     <Button
         android:id="@+id/btn_view_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Edit"
-        app:layout_constraintStart_toStartOf="@+id/pizza_order_topping"
-        app:layout_constraintTop_toBottomOf="@+id/pizza_order_topping" />
+        android:text="@string/btn_edit"
+        app:layout_constraintStart_toStartOf="@+id/topping_description"
+        app:layout_constraintTop_toBottomOf="@+id/topping_description" />
 
     <Button
         android:id="@+id/btn_cancel_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="Remove"
+        android:text="@string/btn_remove"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_view_order"
         app:layout_constraintStart_toEndOf="@+id/btn_view_order" />
 
@@ -72,7 +72,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="10"
         app:layout_constraintBottom_toBottomOf="@+id/btn_deduct_qty"
         app:layout_constraintEnd_toStartOf="@+id/btn_add_qty"
         app:layout_constraintTop_toTopOf="@+id/btn_deduct_qty" />
@@ -82,7 +81,19 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
-        android:text="-"
+        android:text="@string/minus_sign"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_cancel_order"
         app:layout_constraintEnd_toStartOf="@+id/pizza_order_qty" />
+
+    <TextView
+        android:id="@+id/pizza_price_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pizza_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/pizza_name"
+        tools:text="$100" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,14 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rammelbalagtas.finalproject.R;
-import com.rammelbalagtas.finalproject.helper.DisplayMode;
+import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.ui.order_summary.IOrderSummary;
-import com.rammelbalagtas.finalproject.ui.order_summary.OrderSummaryFragmentDirections;
 
 import java.util.ArrayList;
 
@@ -42,12 +40,13 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     // Bind data to view holder (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull OrderSummaryAdapter.ViewHolder viewholder, int position) {
-        Pizza pizza = pizzaList.get(position);
         // Get element from the dataset at this position and replace the
         // contents of the view with that element
+        Pizza pizza = pizzaList.get(position);
         viewholder.getPizzaName().setText(pizza.getName());
-        viewholder.getPizzaTopping().setText(pizza.getDescription());
+        viewholder.getPizzaTopping().setText(PizzaDataConfiguration.buildToppingDescription(pizza));
         viewholder.getPizzaQuantity().setText(String.valueOf(pizza.getQuantity()));
+        viewholder.getPizzaTotalPrice().setText(String.valueOf(pizza.getPrice() * pizza.getQuantity()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -62,16 +61,18 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView pizzaName;
-        private TextView pizzaTopping;
-        private TextView pizzaQuantity;
+        private final TextView pizzaName;
+        private final TextView pizzaTopping;
+        private final TextView pizzaQuantity;
+        private final TextView pizzaTotalPrice;
 
         public ViewHolder(@NonNull View view) {
             super(view);
 
-            pizzaName = view.findViewById(R.id.order_id);
-            pizzaTopping = view.findViewById(R.id.pizza_order_topping);
+            pizzaName = view.findViewById(R.id.pizza_name);
+            pizzaTopping = view.findViewById(R.id.topping_description);
             pizzaQuantity = view.findViewById(R.id.pizza_order_qty);
+            pizzaTotalPrice = view.findViewById(R.id.pizza_price_total);
 
             // Define click listener for the buttons
             Button btnEditItem = view.findViewById(R.id.btn_view_order);
@@ -95,6 +96,8 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         public TextView getPizzaQuantity() {
             return pizzaQuantity;
         }
+
+        public TextView getPizzaTotalPrice() { return pizzaTotalPrice; }
 
         private final View.OnClickListener onClickEdit = new View.OnClickListener() {
             @Override

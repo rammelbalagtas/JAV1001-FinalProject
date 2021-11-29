@@ -22,5 +22,9 @@
     <string name="tax_label">Tax:</string>
     <string name="checkout_text">Checkout</string>
     <string name="total_label">Total:</string>
+    <string name="minus_sign">-</string>
+    <string name="btn_plus_sign">+</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_remove">Remove</string>
 
 </resources>

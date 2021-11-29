@@ -6,22 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rammelbalagtas.finalproject.MainActivity;
 import com.rammelbalagtas.finalproject.R;
-import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.models.Order;
-import com.rammelbalagtas.finalproject.models.Pizza;
-import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 import com.rammelbalagtas.finalproject.ui.order_history.IOrderList;
-import com.rammelbalagtas.finalproject.ui.order_history.OrderHistoryFragmentDirections;
-import com.rammelbalagtas.finalproject.ui.order_summary.IOrderSummary;
 
 import java.util.ArrayList;
 
@@ -63,7 +55,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         public ViewHolder(@NonNull View view) {
             super(view);
 
-            orderId = view.findViewById(R.id.order_id);
+            orderId = view.findViewById(R.id.pizza_name);
 
             // Define click listener for the buttons
             Button btnViewItem = view.findViewById(R.id.btn_view_order);

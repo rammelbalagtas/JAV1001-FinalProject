@@ -80,7 +80,7 @@
     <fragment
         android:id="@+id/customize_pizza_fragment"
         android:name="com.rammelbalagtas.finalproject.ui.customize_pizza.CustomizePizzaFragment"
-        android:label="Pizza">
+        android:label="Customize Pizza">
         <argument
             android:name="argPizzaName"
             app:argType="string" />
@@ -109,7 +109,7 @@
     <fragment
         android:id="@+id/order_summary_fragment"
         android:name="com.rammelbalagtas.finalproject.ui.order_summary.OrderSummaryFragment"
-        android:label="Order Summary">
+        android:label="Summary">
         <argument
             android:name="argOrderObject"
             app:argType="com.rammelbalagtas.finalproject.models.Order"

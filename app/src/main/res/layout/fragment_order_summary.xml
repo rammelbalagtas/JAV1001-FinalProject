@@ -24,19 +24,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Order ID: 1611"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Order ID: XXXX" />
 
             <TextView
                 android:id="@+id/label_header_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/items_header"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/text_orderid"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_orderid" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -82,6 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/total_label"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBaseline_toBaselineOf="@+id/text_total"
                     app:layout_constraintStart_toStartOf="@+id/label_tax" />
 
@@ -89,7 +93,7 @@
                     android:id="@+id/btn_checkout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/checkout_text"
                     app:layout_constraintEnd_toEndOf="@+id/text_total"
                     app:layout_constraintTop_toBottomOf="@+id/text_total" />
@@ -118,9 +122,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    tools:text="$113"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/text_tax"
-                    app:layout_constraintTop_toBottomOf="@+id/text_tax" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_tax"
+                    tools:text="$113" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -18,6 +18,7 @@ import com.rammelbalagtas.finalproject.adapter.OrderSummaryAdapter;
 import com.rammelbalagtas.finalproject.databinding.FragmentOrderSummaryBinding;
 import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.helper.DisplayMode;
+import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Cart;
 import com.rammelbalagtas.finalproject.models.Order;
 import com.rammelbalagtas.finalproject.models.OrderList;
@@ -33,7 +34,7 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
     private final View.OnClickListener onClickCheckOut = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            order = new Order(1);
+            order = new Order(PizzaDataConfiguration.generateOrderId());
             order.setPizzaList(cart.getPizzaList());
             order.setSubTotal(cart.getSubTotal());
             order.setTax(cart.getTax());
@@ -70,7 +71,13 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        updateTotalValues();
+        if (order != null) {
+            binding.textOrderid.setText("Order ID: " + String.valueOf(order.getOrderId()));
+            binding.btnCheckout.setText("Update");
+        } else {
+            binding.textOrderid.setVisibility(View.GONE);
+        }
+        setTotalValues();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -98,17 +105,17 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         checkout.setOnClickListener(onClickCheckOut);
     }
 
-    private void updateTotalValues() {
+    private void setTotalValues() {
         String total, tax, subTotal;
         if (order == null) {
-
+            binding.textSubtotal.setText(String.valueOf(cart.getSubTotal()));
+            binding.textTax.setText(String.valueOf(cart.getTax()));
+            binding.textTotal.setText(String.valueOf(cart.getTotal()));
         } else {
-
+            binding.textSubtotal.setText(String.valueOf(order.getSubTotal()));
+            binding.textTax.setText(String.valueOf(order.getTax()));
+            binding.textTotal.setText(String.valueOf(order.getTotal()));
         }
-        binding.textSubtotal.setText("$100");
-        binding.textTax.setText("$100");
-        binding.textTotal.setText("$100");
-        binding.textOrderid.setText("Order ID XXXX");
     }
 
     @Override
@@ -137,7 +144,7 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
             order.removePizza(position);
             //Todo: Update order list object in shared preferences
         }
-        updateTotalValues();
+        setTotalValues();
         adapter.notifyItemRemoved(position);
     }
 }
