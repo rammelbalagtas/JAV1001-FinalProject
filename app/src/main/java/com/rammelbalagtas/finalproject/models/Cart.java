@@ -1,8 +1,9 @@
 package com.rammelbalagtas.finalproject.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cart {
+public class Cart implements Serializable {
     private ArrayList<Pizza> pizzaList;
     private double subTotal;
     private double tax;
@@ -31,12 +32,12 @@ public class Cart {
 
     public void addPizza(Pizza pizza) {
         pizzaList.add(pizza);
-        computeTotal();
+        updateTotal(pizza, "Add");
     }
 
     public void removePizza(int index) {
+        updateTotal(pizzaList.get(index), "Delete");
         pizzaList.remove(index);
-        computeTotal();
     }
 
     private void computeTotal() {
@@ -45,5 +46,19 @@ public class Cart {
         }
         tax = subTotal * taxRate;
         total = subTotal + tax;
+    }
+
+    private void updateTotal(Pizza pizza, String action){
+        double tempSubTotal = (pizza.getPrice() * pizza.getQuantity());
+        double tempTax = tempSubTotal * taxRate;
+        if (action.equals("Add")) {
+            subTotal += tempSubTotal;
+            tax += tempTax;
+            total = total + tempSubTotal + tempTax;
+        } else {
+            subTotal -= tempSubTotal;
+            tax -= tempTax;
+            total = total - tempSubTotal - tempTax;
+        }
     }
 }

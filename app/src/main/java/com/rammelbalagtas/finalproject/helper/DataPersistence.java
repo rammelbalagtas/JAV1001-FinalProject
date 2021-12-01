@@ -12,7 +12,7 @@ import com.rammelbalagtas.finalproject.models.Pizza;
 
 public class DataPersistence {
 
-    private static final String PREFERENCE_NAME = "SharedPreferences";
+    private static final String PREFERENCE_NAME = "SharedPreferences2";
 
     public static void saveCartSF(Cart cart, @NonNull Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);

@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/card_background.xml" value="0.24453125" />
         <entry key="app/src/main/res/drawable/ic_add_shopping_cart_24.xml" value="0.24739583333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.31145833333333334" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.14722222222222223" />
         <entry key="app/src/main/res/drawable/ic_history_24dp.xml" value="0.24453125" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.14722222222222223" />

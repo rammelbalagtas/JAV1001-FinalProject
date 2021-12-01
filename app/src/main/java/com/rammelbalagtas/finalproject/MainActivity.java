@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Your cart is currently empty", Toast.LENGTH_SHORT).show();
         } else {
             Navigation.findNavController(this, R.id.nav_host_fragment).
-                    navigate(HomeFragmentDirections.actionNavHomeToOrderSummary(null));
+                    navigate(HomeFragmentDirections.actionNavToOrderSummary(null));
         }
     }
 

@@ -26,5 +26,8 @@
     <string name="btn_plus_sign">+</string>
     <string name="btn_edit">Edit</string>
     <string name="btn_remove">Remove</string>
+    <string name="quantity_initial">1</string>
+    <string name="add_to_cart_text">Add to Cart</string>
+    <string name="save_text">Save</string>
 
 </resources>

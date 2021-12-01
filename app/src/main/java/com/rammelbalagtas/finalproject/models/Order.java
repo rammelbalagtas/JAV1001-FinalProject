@@ -62,4 +62,18 @@ public class Order implements Serializable {
 
     }
 
+//    private void updateTotal(Pizza pizza, String action){
+//        double tempSubTotal = (pizza.getPrice() * pizza.getQuantity());
+//        double tempTax = tempSubTotal * taxRate;
+//        if (action.equals("Add")) {
+//            subTotal += tempSubTotal;
+//            tax += tempTax;
+//            total = total + tempSubTotal + tempTax;
+//        } else {
+//            subTotal -= tempSubTotal;
+//            tax -= tempTax;
+//            total = total - tempSubTotal - tempTax;
+//        }
+//    }
+
 }

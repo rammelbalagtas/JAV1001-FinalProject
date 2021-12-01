@@ -25,14 +25,23 @@
                 android:name="argMode"
                 app:argType="com.rammelbalagtas.finalproject.helper.DisplayMode" />
             <argument
-                android:name="argPizzaObject"
-                app:argType="com.rammelbalagtas.finalproject.models.Pizza"
+                android:name="argCartObject"
+                app:argType="com.rammelbalagtas.finalproject.models.Cart"
                 app:nullable="true"
                 android:defaultValue="@null"/>
+            <argument
+                android:name="argOrderObject"
+                app:argType="com.rammelbalagtas.finalproject.models.Order"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+            <argument
+                android:name="argPizzaIndex"
+                app:argType="integer"
+                android:defaultValue="0"/>
         </action>
         <action
-            android:id="@+id/action_nav_home_to_order_summary"
-            app:destination="@id/order_summary_fragment"/>
+            android:id="@+id/action_nav_to_order_summary"
+            app:destination="@id/navigation_order_summary"/>
     </fragment>
 
     <fragment
@@ -42,10 +51,10 @@
         tools:layout="@layout/fragment_order_history">
         <action
             android:id="@+id/action_nav_order_history_to_order_summary"
-            app:destination="@id/order_summary_fragment" />
+            app:destination="@id/navigation_order_summary" />
         <action
-            android:id="@+id/action_nav_home_to_order_summary"
-            app:destination="@id/order_summary_fragment"/>
+            android:id="@+id/action_nav_to_order_summary"
+            app:destination="@id/navigation_order_summary"/>
     </fragment>
 
     <fragment
@@ -63,18 +72,23 @@
                 android:name="argMode"
                 app:argType="com.rammelbalagtas.finalproject.helper.DisplayMode" />
             <argument
-                android:name="argItemNo"
-                android:defaultValue="0"
-                app:argType="integer" />
-            <argument
-                android:name="argPizzaObject"
-                app:argType="com.rammelbalagtas.finalproject.models.Pizza"
+                android:name="argCartObject"
+                app:argType="com.rammelbalagtas.finalproject.models.Cart"
                 app:nullable="true"
                 android:defaultValue="@null"/>
+            <argument
+                android:name="argOrderObject"
+                app:argType="com.rammelbalagtas.finalproject.models.Order"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+            <argument
+                android:name="argPizzaIndex"
+                app:argType="integer"
+                android:defaultValue="0"/>
         </action>
         <action
-            android:id="@+id/action_nav_home_to_order_summary"
-            app:destination="@id/order_summary_fragment"
+            android:id="@+id/action_nav_to_order_summary"
+            app:destination="@id/navigation_order_summary"
             app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
@@ -90,24 +104,28 @@
         <argument
             android:name="argPizzaPrice"
             app:argType="float" />
-        <argument
-            android:name="argPizzaObject"
-            app:argType="com.rammelbalagtas.finalproject.models.Pizza"
-            app:nullable="true" />
         <action
             android:id="@+id/action_nav_customize_pizza_to_home"
             app:destination="@id/navigation_home"
             app:enterAnim="@android:anim/slide_in_left" />
         <action
-            android:id="@+id/navigate_order_summary"
-            app:destination="@id/order_summary_fragment" />
-        <action
-            android:id="@+id/action_nav_home_to_order_summary"
-            app:destination="@id/order_summary_fragment"
-            app:enterAnim="@android:anim/slide_in_left" />
+            android:id="@+id/action_custom_pizza_to_order_summary"
+            app:destination="@id/navigation_order_summary"
+            app:enterAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="argCartObject"
+            app:argType="com.rammelbalagtas.finalproject.models.Cart"
+            app:nullable="true" />
+        <argument
+            android:name="argOrderObject"
+            app:argType="com.rammelbalagtas.finalproject.models.Order"
+            app:nullable="true" />
+        <argument
+            android:name="argPizzaIndex"
+            app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/order_summary_fragment"
+        android:id="@+id/navigation_order_summary"
         android:name="com.rammelbalagtas.finalproject.ui.order_summary.OrderSummaryFragment"
         android:label="Summary">
         <argument
@@ -129,6 +147,10 @@
                 android:name="argMode"
                 app:argType="com.rammelbalagtas.finalproject.helper.DisplayMode" />
         </action>
+        <action
+            android:id="@+id/action_order_summary_fragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@android:anim/slide_out_right" />
     </fragment>
 </navigation>
 

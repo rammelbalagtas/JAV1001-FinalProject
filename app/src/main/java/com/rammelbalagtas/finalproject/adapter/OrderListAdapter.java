@@ -40,7 +40,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         Order order = orderList.get(position);
         // Get element from the dataset at this position and replace the
         // contents of the view with that element
-        viewholder.getOrderId().setText(String.valueOf(order.getOrderId()));
+        viewholder.getOrderId().setText("Order ID: " + String.valueOf(order.getOrderId()));
     }
 
     @Override

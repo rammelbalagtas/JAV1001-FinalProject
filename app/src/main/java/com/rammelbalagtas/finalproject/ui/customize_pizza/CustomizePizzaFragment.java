@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,32 +25,29 @@ import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.adapter.ToppingsAdapter;
 import com.rammelbalagtas.finalproject.databinding.FragmentCustomizePizzaBinding;
 import com.rammelbalagtas.finalproject.models.Cart;
+import com.rammelbalagtas.finalproject.models.Order;
+import com.rammelbalagtas.finalproject.models.OrderList;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Topping.Meat;
 import com.rammelbalagtas.finalproject.models.Topping.Sauce;
 import com.rammelbalagtas.finalproject.models.Topping.Vegetable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CustomizePizzaFragment extends Fragment {
 
     private DisplayMode displayMode;
     private Pizza currentPizza;
-
-    private ToppingsAdapter<Sauce> sauceListAdapter;
-    private ArrayList<Sauce> sauceList = new ArrayList<>();
     private View rootView;
-
+    private ToppingsAdapter<Sauce> sauceListAdapter;
     private ToppingsAdapter<Meat> meatListAdapter;
-    private ArrayList<Meat> meatList = new ArrayList<>();
-
     private ToppingsAdapter<Vegetable> vegetableListAdapter;
-    private ArrayList<Vegetable> vegetableList = new ArrayList<>();
-
     private FragmentCustomizePizzaBinding binding;
     private TextView quantityText;
+    private Cart cart;
+    private Order order;
+    private int pizzaIndex;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,21 +58,26 @@ public class CustomizePizzaFragment extends Fragment {
         if (displayMode.equals(DisplayMode.NEW)) {
             currentPizza = new Pizza();
             currentPizza.setName(CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaName());
+            currentPizza.setQuantity(1);
             currentPizza.setPrice(CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaPrice());
             for (String sauce : PizzaDataConfiguration.sauceTopping) {
-                sauceList.add(new Sauce(sauce, "None"));
+                currentPizza.getSauceList().add(new Sauce(sauce, "None"));
             }
             for (String meat : PizzaDataConfiguration.meatTopping) {
-                meatList.add(new Meat(meat, "None"));
+                currentPizza.getMeatList().add(new Meat(meat, "None"));
             }
             for (String vegetable : PizzaDataConfiguration.vegetableTopping) {
-                vegetableList.add(new Vegetable(vegetable, "None"));
+                currentPizza.getVegetableList().add(new Vegetable(vegetable, "None"));
             }
         } else {
-            currentPizza = CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaObject();
-            sauceList = currentPizza.getSauceList();
-            meatList = currentPizza.getMeatList();
-            vegetableList = currentPizza.getVegetableList();
+            cart = CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgCartObject();
+            order = CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgOrderObject();
+            pizzaIndex = CustomizePizzaFragmentArgs.fromBundle(getArguments()).getArgPizzaIndex();
+            if (order == null) {
+                currentPizza = cart.getPizzaList().get(pizzaIndex);
+            } else {
+                currentPizza = order.getPizzaList().get(pizzaIndex);
+            }
         }
     }
 
@@ -95,6 +98,13 @@ public class CustomizePizzaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         quantityText = binding.textPizzaQty;
+        quantityText.setText(String.valueOf(currentPizza.getQuantity()));
+        Button updateCart = binding.btnAddToCart;
+        if (displayMode.equals(DisplayMode.NEW)) {
+            updateCart.setText(R.string.add_to_cart_text);
+        } else {
+            updateCart.setText(R.string.save_text);
+        }
         binding.textPizzaName.setText(currentPizza.getName());
     }
 
@@ -111,7 +121,7 @@ public class CustomizePizzaFragment extends Fragment {
         LinearLayoutManager sauceLayoutManager = new LinearLayoutManager(rootView.getContext());
         sauceRecycler.setLayoutManager(sauceLayoutManager);
         // Create list adapter
-        sauceListAdapter = new ToppingsAdapter<Sauce>(sauceList);
+        sauceListAdapter = new ToppingsAdapter<Sauce>(currentPizza.getSauceList());
         sauceRecycler.setAdapter(sauceListAdapter);
     }
 
@@ -122,7 +132,7 @@ public class CustomizePizzaFragment extends Fragment {
         LinearLayoutManager meatLayoutManager = new LinearLayoutManager(rootView.getContext());
         meatRecycler.setLayoutManager(meatLayoutManager);
         // Create list adapter
-        meatListAdapter = new ToppingsAdapter<Meat>(meatList);
+        meatListAdapter = new ToppingsAdapter<Meat>(currentPizza.getMeatList());
         meatRecycler.setAdapter(meatListAdapter);
     }
 
@@ -133,7 +143,7 @@ public class CustomizePizzaFragment extends Fragment {
         LinearLayoutManager vegetableLayoutManager = new LinearLayoutManager(rootView.getContext());
         vegetableRecycler.setLayoutManager(vegetableLayoutManager);
         // Create list adapter
-        vegetableListAdapter = new ToppingsAdapter<Vegetable>(vegetableList);
+        vegetableListAdapter = new ToppingsAdapter<Vegetable>(currentPizza.getVegetableList());
         vegetableRecycler.setAdapter(vegetableListAdapter);
     }
 
@@ -145,6 +155,10 @@ public class CustomizePizzaFragment extends Fragment {
                 android.R.layout.simple_spinner_item, PizzaDataConfiguration.pizzaSize);
         pizzaSizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaSizeSpinner.setAdapter(pizzaSizeAdapter);
+        if (!displayMode.equals(DisplayMode.NEW)) {
+            pizzaSizeSpinner.setSelection(Arrays.asList(PizzaDataConfiguration.pizzaSize).
+                    indexOf(currentPizza.getSize()));
+        }
         pizzaSizeSpinner.setOnItemSelectedListener(onSelectSize);
 
         //Spinner values for pizza crust
@@ -153,62 +167,72 @@ public class CustomizePizzaFragment extends Fragment {
                 android.R.layout.simple_spinner_item, PizzaDataConfiguration.pizzaCrust);
         pizzaCrustAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pizzaCrustSpinner.setAdapter(pizzaCrustAdapter);
+        if (!displayMode.equals(DisplayMode.NEW)) {
+            pizzaCrustSpinner.setSelection(Arrays.asList(PizzaDataConfiguration.pizzaCrust).
+                    indexOf(currentPizza.getCrust()));
+        }
         pizzaCrustSpinner.setOnItemSelectedListener(onSelectCrust);
     }
 
     private void setEventListeners() {
         Button btnAddToCart = rootView.findViewById(R.id.btn_add_to_cart);
-        btnAddToCart.setOnClickListener(onClickAddToCart);
+        btnAddToCart.setOnClickListener(onClickAddSaveOrder);
         Button btnAddPizza = rootView.findViewById(R.id.btn_add_pizza);
         btnAddPizza.setOnClickListener(onClickAddPizza);
         Button btnLessPizza = rootView.findViewById(R.id.btn_less_pizza);
         btnLessPizza.setOnClickListener(onClickLessPizza);
     }
 
-    private final View.OnClickListener onClickAddToCart = view -> {
-
+    private final View.OnClickListener onClickAddSaveOrder = view -> {
         if (isDataValid()) {
-            currentPizza.setSauceList(sauceList);
-            currentPizza.setMeatList(meatList);
-            currentPizza.setVegetableList(vegetableList);
-            Cart cart = DataPersistence.getCartSF(getContext());
-            cart.addPizza(currentPizza);
-            DataPersistence.saveCartSF(cart, getContext());
-            Navigation.findNavController(view).navigate(R.id.action_nav_customize_pizza_to_home);
+            if (displayMode.equals(DisplayMode.NEW)) {
+                Cart cart = DataPersistence.getCartSF(getContext());
+                cart.addPizza(currentPizza);
+                DataPersistence.saveCartSF(cart, getContext());
+                new AlertDialog.Builder(getContext())
+                        .setMessage("You item has been added to the cart")
+                        .setNeutralButton(android.R.string.ok,
+                                (dialog, which) ->
+                                        Navigation.findNavController(rootView).
+                                                navigate(R.id.action_nav_customize_pizza_to_home))
+                        .create()
+                        .show();
+            } else {
+                if (displayMode.equals(DisplayMode.EDIT_PIZZA_CART)) {
+                    DataPersistence.saveCartSF(cart, getContext());
+                }
+                Navigation.findNavController(rootView).navigateUp();
+            }
         } else {
             return;
         }
     };
 
     private boolean isDataValid() {
-
         boolean hasSauce = false, hasMeat = false, hasVegetable = false;
-
-        for (Sauce sauce : sauceList) {
+        for (Sauce sauce : currentPizza.getSauceList()) {
             if (!sauce.getLevel().equals("None")) {
                 hasSauce = true;
                 break;
             }
         }
-
         if (!hasSauce) {
             Toast.makeText(getContext(), "Please add at least one sauce", Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            for (Meat meat : meatList) {
+            for (Meat meat : currentPizza.getMeatList()) {
                 if (!meat.getLevel().equals("None")) {
                     hasMeat = true;
                     break;
                 }
             }
             if (!hasMeat) {
-                for (Vegetable vegetable : vegetableList) {
+                for (Vegetable vegetable : currentPizza.getVegetableList()) {
                     if (!vegetable.getLevel().equals("None")) {
                         hasVegetable = true;
                         break;
                     }
                 }
-
                 if (!hasVegetable) {
                     Toast.makeText(getContext(), "Please add at lease one meat and/or vegetable", Toast.LENGTH_SHORT).show();
                     return false;
@@ -247,12 +271,7 @@ public class CustomizePizzaFragment extends Fragment {
     private final AdapterView.OnItemSelectedListener onSelectSize = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (displayMode.equals(DisplayMode.NEW)) {
-                currentPizza.setSize(PizzaDataConfiguration.pizzaSize[position]);
-            } else {
-                parent.setSelection(Arrays.asList(PizzaDataConfiguration.pizzaSize).
-                        indexOf(currentPizza.getSize()));
-            }
+            currentPizza.setSize(PizzaDataConfiguration.pizzaSize[position]);
         }
 
         @Override
@@ -264,12 +283,7 @@ public class CustomizePizzaFragment extends Fragment {
     private final AdapterView.OnItemSelectedListener onSelectCrust = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (displayMode.equals(DisplayMode.NEW)) {
-                currentPizza.setCrust(PizzaDataConfiguration.pizzaCrust[position]);
-            } else {
-                parent.setSelection(Arrays.asList(PizzaDataConfiguration.pizzaCrust).
-                        indexOf(currentPizza.getCrust()));
-            }
+            currentPizza.setCrust(PizzaDataConfiguration.pizzaCrust[position]);
         }
 
         @Override
@@ -277,8 +291,4 @@ public class CustomizePizzaFragment extends Fragment {
         }
     };
 }
-
-//TODO: Finalize layout for customize pizza screen
-//TODO: Dynamically change add to cart button. ADD for new order and UPDATE for existing order
-//TODO: Set initial quantity to 1
 
