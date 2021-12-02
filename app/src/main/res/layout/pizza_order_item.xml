@@ -5,17 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btn_add_qty"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/btn_plus_sign"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn_deduct_qty"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
-        android:id="@+id/pizza_name"
+        android:id="@+id/order_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -35,8 +26,8 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/pizza_name"
-        app:layout_constraintTop_toBottomOf="@+id/pizza_name"
+        app:layout_constraintStart_toStartOf="@+id/order_id"
+        app:layout_constraintTop_toBottomOf="@+id/order_id"
         tools:text="Toppings" />
 
     <Button
@@ -71,19 +62,10 @@
         android:id="@+id/pizza_order_qty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_deduct_qty"
-        app:layout_constraintEnd_toStartOf="@+id/btn_add_qty"
-        app:layout_constraintTop_toTopOf="@+id/btn_deduct_qty" />
-
-    <Button
-        android:id="@+id/btn_deduct_qty"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/minus_sign"
+        android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_cancel_order"
-        app:layout_constraintEnd_toStartOf="@+id/pizza_order_qty" />
+        app:layout_constraintEnd_toEndOf="@+id/topping_description"
+        tools:text="Quantity: 1" />
 
     <TextView
         android:id="@+id/pizza_price_total"
@@ -91,9 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/pizza_name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/order_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/pizza_name"
+        app:layout_constraintStart_toEndOf="@+id/order_id"
         tools:text="$100" />
 </androidx.constraintlayout.widget.ConstraintLayout>

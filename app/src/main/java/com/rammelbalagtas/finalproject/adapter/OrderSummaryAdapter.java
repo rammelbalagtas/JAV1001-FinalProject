@@ -16,6 +16,7 @@ import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.ui.order_summary.IOrderSummary;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapter.ViewHolder> {
@@ -45,8 +46,9 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         Pizza pizza = pizzaList.get(position);
         viewholder.getPizzaName().setText(pizza.getName());
         viewholder.getPizzaTopping().setText(PizzaDataConfiguration.buildToppingDescription(pizza));
-        viewholder.getPizzaQuantity().setText(String.valueOf(pizza.getQuantity()));
-        viewholder.getPizzaTotalPrice().setText(String.valueOf(pizza.getPrice() * pizza.getQuantity()));
+        viewholder.getPizzaQuantity().setText("Quantity: " + String.valueOf(pizza.getQuantity()));
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        viewholder.getPizzaTotalPrice().setText(currency.format(pizza.getPrice() * pizza.getQuantity()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -69,7 +71,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         public ViewHolder(@NonNull View view) {
             super(view);
 
-            pizzaName = view.findViewById(R.id.pizza_name);
+            pizzaName = view.findViewById(R.id.order_id);
             pizzaTopping = view.findViewById(R.id.topping_description);
             pizzaQuantity = view.findViewById(R.id.pizza_order_qty);
             pizzaTotalPrice = view.findViewById(R.id.pizza_price_total);
@@ -79,10 +81,6 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
             btnEditItem.setOnClickListener(onClickEdit);
             Button btnRemoveItem = view.findViewById(R.id.btn_cancel_order);
             btnRemoveItem.setOnClickListener(onClickRemove);
-            Button btnAddQty = view.findViewById(R.id.btn_add_qty);
-            btnAddQty.setOnClickListener(onClickAddQty);
-            Button btnDeductQty = view.findViewById(R.id.btn_deduct_qty);
-            btnDeductQty.setOnClickListener(onClickDeductQty);
         }
 
         public TextView getPizzaName() {
@@ -117,15 +115,6 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
                         }
                     })
                     .setNegativeButton(android.R.string.no, null).show();
-        };
-
-        private View.OnClickListener onClickAddQty = view -> {
-            int position = getLayoutPosition();
-        };
-
-        private View.OnClickListener onClickDeductQty = view -> {
-            int position = getLayoutPosition();
-
         };
 
     }

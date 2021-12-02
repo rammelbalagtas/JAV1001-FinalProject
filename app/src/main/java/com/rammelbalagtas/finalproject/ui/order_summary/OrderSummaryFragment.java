@@ -28,6 +28,8 @@ import com.rammelbalagtas.finalproject.models.Order;
 import com.rammelbalagtas.finalproject.models.OrderList;
 import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
+import java.text.NumberFormat;
+
 public class OrderSummaryFragment extends Fragment implements IOrderSummary {
 
     private Cart cart;
@@ -123,15 +125,15 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
     }
 
     private void setTotalValues() {
-        String total, tax, subTotal;
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
         if (order == null) {
-            binding.textSubtotal.setText(String.valueOf(cart.getSubTotal()));
-            binding.textTax.setText(String.valueOf(cart.getTax()));
-            binding.textTotal.setText(String.valueOf(cart.getTotal()));
+            binding.textSubtotal.setText(currency.format(cart.getSubTotal()));
+            binding.textTax.setText(currency.format(cart.getTax()));
+            binding.textTotal.setText(currency.format(cart.getTotal()));
         } else {
-            binding.textSubtotal.setText(String.valueOf(order.getSubTotal()));
-            binding.textTax.setText(String.valueOf(order.getTax()));
-            binding.textTotal.setText(String.valueOf(order.getTotal()));
+            binding.textSubtotal.setText(currency.format(order.getSubTotal()));
+            binding.textTax.setText(currency.format(order.getTax()));
+            binding.textTotal.setText(currency.format(order.getTotal()));
         }
     }
 
@@ -175,10 +177,5 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
     }
 }
 
-//TODO: Hide order id field if opening the cart
-//TODO: Implement events for increase and decrease quantity or remove the buttons and make quantity static
-//TODO: When there is only one item in cart and user click remove, the screen should go back to main screen
-//TODO: Button should have dynamic text, if cart is opened, set to CHECKOUT,if order is open, set to UPDATE
 //TODO: Hide cart icon from the menu if the screen opened is the cart screen
-//TODO: Add topping description and amount per pizza in the screen
 

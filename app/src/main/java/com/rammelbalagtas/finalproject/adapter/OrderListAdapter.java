@@ -15,6 +15,7 @@ import com.rammelbalagtas.finalproject.R;
 import com.rammelbalagtas.finalproject.models.Order;
 import com.rammelbalagtas.finalproject.ui.order_history.IOrderList;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder> {
@@ -41,6 +42,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         // Get element from the dataset at this position and replace the
         // contents of the view with that element
         viewholder.getOrderId().setText("Order ID: " + String.valueOf(order.getOrderId()));
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        viewholder.getOrderTotalPrice().setText("Total Price: " + currency.format(order.getTotal()));
     }
 
     @Override
@@ -51,11 +54,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView orderId;
+        private TextView orderTotalPrice;
 
         public ViewHolder(@NonNull View view) {
             super(view);
 
-            orderId = view.findViewById(R.id.pizza_name);
+            orderId = view.findViewById(R.id.order_id);
+            orderTotalPrice = view.findViewById(R.id.order_total_price);
 
             // Define click listener for the buttons
             Button btnViewItem = view.findViewById(R.id.btn_view_order);
@@ -84,5 +89,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         public TextView getOrderId() {
             return orderId;
         }
+        public TextView getOrderTotalPrice() { return orderTotalPrice; }
     }
 }

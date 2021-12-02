@@ -6,16 +6,13 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/pizza_name"
-        android:layout_width="0dp"
+        android:id="@+id/order_id"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:text="Order ID"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="View"
-        app:layout_constraintStart_toStartOf="@+id/pizza_name"
-        app:layout_constraintTop_toBottomOf="@+id/pizza_name" />
+        app:layout_constraintStart_toStartOf="@+id/order_id"
+        app:layout_constraintTop_toBottomOf="@+id/order_id" />
 
     <Button
         android:id="@+id/btn_cancel_order"
@@ -46,5 +43,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_view_order" />
+
+    <TextView
+        android:id="@+id/order_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Total Price: $0.00"
+        app:layout_constraintBaseline_toBaselineOf="@+id/order_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/order_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
