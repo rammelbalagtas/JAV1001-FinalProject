@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,52 +26,23 @@ import com.rammelbalagtas.finalproject.models.Order;
 import com.rammelbalagtas.finalproject.models.OrderList;
 
 import java.text.NumberFormat;
-import java.util.Objects;
 
 public class OrderSummaryFragment extends Fragment implements IOrderSummary {
 
     private Cart cart;
     private Order order;
+    private int orderIndex;
     private FragmentOrderSummaryBinding binding;
     private OrderSummaryAdapter adapter;
     private View rootView;
-
-    private final View.OnClickListener onClickCheckOutUpdate = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (cart != null) {
-                // Create a new order
-                order = new Order(PizzaDataConfiguration.generateOrderId());
-                order.setPizzaList(cart.getPizzaList());
-                order.setSubTotal(cart.getSubTotal());
-                order.setTax(cart.getTax());
-                order.setTotal(cart.getTotal());
-                order.setStatus("In Progress");
-                OrderList orderList = DataPersistence.getOrderListSF(requireContext());
-                orderList.addOrder(order);
-                DataPersistence.saveOrderListSF(orderList, getContext());
-                DataPersistence.deleteCartSF(getContext());
-                new AlertDialog.Builder(getContext())
-                        .setMessage("Order ID " + order.getOrderId() + "is created.")
-                        .setNeutralButton(android.R.string.ok,
-                                (dialog, which) ->
-                                        Navigation.findNavController(rootView).
-                                                navigate(R.id.action_order_summary_fragment_to_navigation_home))
-                        .create()
-                        .show();
-            } else {
-                //Update existing order
-                Navigation.findNavController(rootView).navigateUp();
-            }
-        }
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         order = OrderSummaryFragmentArgs.fromBundle(getArguments()).getArgOrderObject();
+        orderIndex = OrderSummaryFragmentArgs.fromBundle(getArguments()).getArgOrderIndex();
         if (order == null) { //if order object is null, means the user is accessing the Cart
-            getCartData();
+            cart = DataPersistence.getCartSF(requireContext());
         }
     }
 
@@ -96,10 +68,6 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         }
         setTotalValues();
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    private void getCartData() {
-        cart = DataPersistence.getCartSF(getContext());
     }
 
     private void configureRecycler() {
@@ -140,6 +108,39 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         binding = null;
     }
 
+    private final View.OnClickListener onClickCheckOutUpdate = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (cart != null) {
+                // Create a new order
+                order = new Order(PizzaDataConfiguration.generateOrderId());
+                order.setPizzaList(cart.getPizzaList());
+                order.setSubTotal(cart.getSubTotal());
+                order.setTax(cart.getTax());
+                order.setTotal(cart.getTotal());
+                order.setStatus("In Progress");
+                OrderList orderList = DataPersistence.getOrderListSF(requireContext());
+                orderList.addOrder(order);
+                DataPersistence.saveOrderListSF(orderList, requireContext());
+                DataPersistence.deleteCartSF(requireContext());
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Order ID " + order.getOrderId() + " is created.")
+                        .setNeutralButton(android.R.string.ok,
+                                (dialog, which) ->
+                                        Navigation.findNavController(rootView).
+                                                navigate(R.id.action_order_summary_fragment_to_navigation_home))
+                        .create()
+                        .show();
+            } else {
+                //Update existing order and navigate back to order history screen
+                OrderList orderList = DataPersistence.getOrderListSF(requireContext());
+                orderList.updateOrder(order, orderIndex);
+                DataPersistence.saveOrderListSF(orderList, requireContext());
+                Navigation.findNavController(rootView).navigateUp();
+            }
+        }
+    };
+
     @Override
     public void edit(int position) {
         // pass pizza object and navigate to next view
@@ -159,20 +160,26 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
             cart.removePizza(position);
             // if cart is empty, set cart object to null and navigate back to home screen
             if (cart.getPizzaList().isEmpty()) {
-                DataPersistence.deleteCartSF(getContext());
+                DataPersistence.deleteCartSF(requireContext());
                 Navigation.findNavController(rootView)
                         .navigate(OrderSummaryFragmentDirections.actionOrderSummaryFragmentToNavigationHome());
             } else {
-                DataPersistence.saveCartSF(cart, getContext());
+                DataPersistence.saveCartSF(cart, requireContext());
             }
         } else {
-            order.removePizza(position);
-            //Todo: Update order list object in shared preferences
+            if (order.getPizzaList().size() == 1) {
+                Toast.makeText(requireContext(),
+                        "Since there is only one item left, cancel the order from Order History tab.",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                order.removePizza(position);
+                OrderList orderList = DataPersistence.getOrderListSF(requireContext());
+                orderList.updateOrder(order, orderIndex);
+                DataPersistence.saveOrderListSF(orderList, requireContext());
+            }
         }
         setTotalValues();
         adapter.notifyItemRemoved(position);
     }
 }
-
-//TODO: Hide cart icon from the menu if the screen opened is the cart screen
 

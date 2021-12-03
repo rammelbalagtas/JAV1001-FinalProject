@@ -41,7 +41,8 @@
         </action>
         <action
             android:id="@+id/action_nav_to_order_summary"
-            app:destination="@id/navigation_order_summary"/>
+            app:destination="@id/navigation_order_summary">
+        </action>
     </fragment>
 
     <fragment
@@ -132,6 +133,9 @@
             android:name="argOrderObject"
             app:argType="com.rammelbalagtas.finalproject.models.Order"
             app:nullable="true" />
+        <argument
+            android:name="argOrderIndex"
+            app:argType="integer" />
         <action
             android:id="@+id/action_nav_order_summary_to_customize_pizza"
             app:destination="@id/customize_pizza_fragment">

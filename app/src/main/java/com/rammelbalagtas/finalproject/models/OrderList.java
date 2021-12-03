@@ -22,4 +22,8 @@ public class OrderList implements Serializable {
     public void removeOrder(int index) {
         orders.remove(index);
     }
+
+    public void updateOrder(Order order, int index) {
+        orders.set(index, order);
+    }
 }

@@ -1,5 +1,6 @@
 package com.rammelbalagtas.finalproject;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         if (item.getItemId() == R.id.view_cart) {
+
             displayCart();
             return true;
         } else {
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Your cart is currently empty", Toast.LENGTH_SHORT).show();
         } else {
             Navigation.findNavController(this, R.id.nav_host_fragment).
-                    navigate(HomeFragmentDirections.actionNavToOrderSummary(null));
+                    navigate(HomeFragmentDirections.actionNavToOrderSummary(null, 0));
         }
     }
 

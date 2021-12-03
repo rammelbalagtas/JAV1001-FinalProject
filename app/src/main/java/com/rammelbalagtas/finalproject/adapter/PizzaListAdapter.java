@@ -16,6 +16,7 @@ import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.ui.special_pizza.PizzaListFragmentDirections;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.ViewHolder> {
@@ -48,7 +49,8 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
         Pizza pizza = pizzaList.get(position);
         // Get element from the dataset at this position and replace the
         // contents of the view with that element
-        viewholder.getTextName().setText(pizza.getName());
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        viewholder.getTextName().setText(pizza.getName() + " (" + currency.format(pizza.getPrice()) + ")");
         viewholder.getTextDescription().setText(pizza.getDescription());
         int imageResourceId;
         switch (position) {
@@ -91,7 +93,6 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
 
         public ViewHolder(@NonNull View view) {
             super(view);
-
             textName = view.findViewById(R.id.text_special_pizza_name);
             textDescription = view.findViewById(R.id.text_special_pizza_description);
             pizzaImage = view.findViewById(R.id.special_pizza_item_image);

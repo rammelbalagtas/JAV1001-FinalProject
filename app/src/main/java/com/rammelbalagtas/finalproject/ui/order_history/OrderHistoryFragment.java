@@ -60,7 +60,7 @@ public class OrderHistoryFragment extends Fragment implements IOrderList {
     @Override
     public void edit(int position) {
         Navigation.findNavController(rootView).
-                navigate(OrderHistoryFragmentDirections.actionNavOrderHistoryToOrderSummary(orderList.getOrders().get(position)));
+                navigate(OrderHistoryFragmentDirections.actionNavOrderHistoryToOrderSummary(orderList.getOrders().get(position), position));
     }
 
     @Override
@@ -70,6 +70,3 @@ public class OrderHistoryFragment extends Fragment implements IOrderList {
           adapter.notifyItemRemoved(position);
     }
 }
-
-//TODO: Add more details in the order history section like date, time, amount
-//TODO: Consider renaming CANCEL to REMOVE
