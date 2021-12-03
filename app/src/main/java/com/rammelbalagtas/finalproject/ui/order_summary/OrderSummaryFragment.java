@@ -1,12 +1,9 @@
 package com.rammelbalagtas.finalproject.ui.order_summary;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.security.ConfirmationPrompt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,9 +23,9 @@ import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Cart;
 import com.rammelbalagtas.finalproject.models.Order;
 import com.rammelbalagtas.finalproject.models.OrderList;
-import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
 import java.text.NumberFormat;
+import java.util.Objects;
 
 public class OrderSummaryFragment extends Fragment implements IOrderSummary {
 
@@ -49,12 +46,12 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
                 order.setTax(cart.getTax());
                 order.setTotal(cart.getTotal());
                 order.setStatus("In Progress");
-                OrderList orderList = DataPersistence.getOrderListSF(getContext());
+                OrderList orderList = DataPersistence.getOrderListSF(requireContext());
                 orderList.addOrder(order);
                 DataPersistence.saveOrderListSF(orderList, getContext());
                 DataPersistence.deleteCartSF(getContext());
                 new AlertDialog.Builder(getContext())
-                        .setMessage("Order ID " + String.valueOf(order.getOrderId()) + "is created.")
+                        .setMessage("Order ID " + order.getOrderId() + "is created.")
                         .setNeutralButton(android.R.string.ok,
                                 (dialog, which) ->
                                         Navigation.findNavController(rootView).
@@ -91,7 +88,7 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (order != null) {
-            binding.textOrderid.setText("Order ID: " + String.valueOf(order.getOrderId()));
+            binding.textOrderid.setText("Order ID: " + order.getOrderId());
             binding.btnCheckoutUpdate.setText("Update");
         } else {
             binding.textOrderid.setVisibility(View.GONE);

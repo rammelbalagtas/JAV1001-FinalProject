@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapter.ViewHolder> {
 
     private final ArrayList<Pizza> pizzaList;
-    private IOrderSummary delegate;
+    private final IOrderSummary delegate;
 
     public OrderSummaryAdapter(ArrayList<Pizza> pizzaList, IOrderSummary delegate) {
         this.pizzaList = pizzaList;
@@ -30,6 +30,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public OrderSummaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -46,7 +47,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         Pizza pizza = pizzaList.get(position);
         viewholder.getPizzaName().setText(pizza.getName());
         viewholder.getPizzaTopping().setText(PizzaDataConfiguration.buildToppingDescription(pizza));
-        viewholder.getPizzaQuantity().setText("Quantity: " + String.valueOf(pizza.getQuantity()));
+        viewholder.getPizzaQuantity().setText("Quantity: " + pizza.getQuantity());
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         viewholder.getPizzaTotalPrice().setText(currency.format(pizza.getPrice() * pizza.getQuantity()));
     }
@@ -104,18 +105,16 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
             }
         };
 
-        private final View.OnClickListener onClickRemove = view -> {
-            new AlertDialog.Builder(view.getContext())
-                    .setTitle("Remove Order Confirmation")
-                    .setMessage("Do you really want to remove the item?")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            delegate.remove(getLayoutPosition());
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, null).show();
-        };
+        private final View.OnClickListener onClickRemove = view -> new AlertDialog.Builder(view.getContext())
+                .setTitle("Remove Order Confirmation")
+                .setMessage("Do you really want to remove the item?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        delegate.remove(getLayoutPosition());
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
 
     }
 }

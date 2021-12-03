@@ -17,7 +17,6 @@ import com.rammelbalagtas.finalproject.databinding.FragmentOrderHistoryBinding;
 import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.models.OrderList;
 
-
 public class OrderHistoryFragment extends Fragment implements IOrderList {
 
     private OrderList orderList;
@@ -55,7 +54,7 @@ public class OrderHistoryFragment extends Fragment implements IOrderList {
 
     private void setInitialData() {
         // Extract data from shared preferences
-        orderList = DataPersistence.getOrderListSF(getContext());
+        orderList = DataPersistence.getOrderListSF(requireContext());
     }
 
     @Override
@@ -67,7 +66,7 @@ public class OrderHistoryFragment extends Fragment implements IOrderList {
     @Override
     public void remove(int position) {
           orderList.removeOrder(position);
-          DataPersistence.saveOrderListSF(orderList, getContext());
+          DataPersistence.saveOrderListSF(orderList, requireContext());
           adapter.notifyItemRemoved(position);
     }
 }

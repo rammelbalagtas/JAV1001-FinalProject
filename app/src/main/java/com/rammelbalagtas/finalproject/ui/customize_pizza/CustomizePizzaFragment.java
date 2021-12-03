@@ -26,7 +26,6 @@ import com.rammelbalagtas.finalproject.adapter.ToppingsAdapter;
 import com.rammelbalagtas.finalproject.databinding.FragmentCustomizePizzaBinding;
 import com.rammelbalagtas.finalproject.models.Cart;
 import com.rammelbalagtas.finalproject.models.Order;
-import com.rammelbalagtas.finalproject.models.OrderList;
 import com.rammelbalagtas.finalproject.models.Pizza;
 import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 import com.rammelbalagtas.finalproject.models.Topping.Meat;
@@ -40,9 +39,6 @@ public class CustomizePizzaFragment extends Fragment {
     private DisplayMode displayMode;
     private Pizza currentPizza;
     private View rootView;
-    private ToppingsAdapter<Sauce> sauceListAdapter;
-    private ToppingsAdapter<Meat> meatListAdapter;
-    private ToppingsAdapter<Vegetable> vegetableListAdapter;
     private FragmentCustomizePizzaBinding binding;
     private TextView quantityText;
     private Cart cart;
@@ -121,8 +117,7 @@ public class CustomizePizzaFragment extends Fragment {
         LinearLayoutManager sauceLayoutManager = new LinearLayoutManager(rootView.getContext());
         sauceRecycler.setLayoutManager(sauceLayoutManager);
         // Create list adapter
-        sauceListAdapter = new ToppingsAdapter<Sauce>(currentPizza.getSauceList());
-        sauceRecycler.setAdapter(sauceListAdapter);
+        sauceRecycler.setAdapter(new ToppingsAdapter<>(currentPizza.getSauceList()));
     }
 
     private void configureMeatRecycler() {
@@ -132,8 +127,7 @@ public class CustomizePizzaFragment extends Fragment {
         LinearLayoutManager meatLayoutManager = new LinearLayoutManager(rootView.getContext());
         meatRecycler.setLayoutManager(meatLayoutManager);
         // Create list adapter
-        meatListAdapter = new ToppingsAdapter<Meat>(currentPizza.getMeatList());
-        meatRecycler.setAdapter(meatListAdapter);
+        meatRecycler.setAdapter(new ToppingsAdapter<>(currentPizza.getMeatList()));
     }
 
     private void configureVegetableRecycler() {
@@ -143,8 +137,7 @@ public class CustomizePizzaFragment extends Fragment {
         LinearLayoutManager vegetableLayoutManager = new LinearLayoutManager(rootView.getContext());
         vegetableRecycler.setLayoutManager(vegetableLayoutManager);
         // Create list adapter
-        vegetableListAdapter = new ToppingsAdapter<Vegetable>(currentPizza.getVegetableList());
-        vegetableRecycler.setAdapter(vegetableListAdapter);
+        vegetableRecycler.setAdapter(new ToppingsAdapter<>(currentPizza.getVegetableList()));
     }
 
     private void configureSpinnerElements() {
@@ -186,10 +179,10 @@ public class CustomizePizzaFragment extends Fragment {
     private final View.OnClickListener onClickAddSaveOrder = view -> {
         if (isDataValid()) {
             if (displayMode.equals(DisplayMode.NEW)) {
-                Cart cart = DataPersistence.getCartSF(getContext());
+                Cart cart = DataPersistence.getCartSF(requireContext());
                 cart.addPizza(currentPizza);
-                DataPersistence.saveCartSF(cart, getContext());
-                new AlertDialog.Builder(getContext())
+                DataPersistence.saveCartSF(cart, requireContext());
+                new AlertDialog.Builder(requireContext())
                         .setMessage("You item has been added to the cart")
                         .setNeutralButton(android.R.string.ok,
                                 (dialog, which) ->
@@ -199,7 +192,7 @@ public class CustomizePizzaFragment extends Fragment {
                         .show();
             } else {
                 if (displayMode.equals(DisplayMode.EDIT_PIZZA_CART)) {
-                    DataPersistence.saveCartSF(cart, getContext());
+                    DataPersistence.saveCartSF(cart, requireContext());
                 }
                 Navigation.findNavController(rootView).navigateUp();
             }

@@ -41,13 +41,6 @@ public class DataPersistence {
                 .apply();
     }
 
-    public static void resetCartSF(Cart cart, @NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Cart", null);
-        editor.apply();
-    }
-
     public static void saveOrderListSF(OrderList orderList, @NonNull Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -66,13 +59,6 @@ public class DataPersistence {
         } else {
             return new OrderList();
         }
-    }
-
-    public static void resetOrderListSF(OrderList orderList, @NonNull Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("OrderList", null);
-        editor.apply();
     }
 
     public static void savePizzaSF(Pizza pizza, @NonNull Context context) {

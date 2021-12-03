@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Choose pizza size and crust:"
+                android:text="@string/choose_pizza_header"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_pizza_name" />
@@ -35,8 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Pizza Name"
-                android:textSize="20dp"
+                tools:text="Pizza Name"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Size"
+                android:text="@string/size_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_customize_pizza_header" />
 
@@ -57,14 +57,15 @@
                 android:layout_marginStart="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/label_pizza_size"
-                app:layout_constraintTop_toTopOf="@+id/label_pizza_size" />
+                app:layout_constraintTop_toTopOf="@+id/label_pizza_size"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/label_pizza_crust"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Crust"
+                android:text="@string/crust_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_pizza_size" />
 
@@ -74,7 +75,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/spinner_size"
-                app:layout_constraintTop_toTopOf="@+id/label_pizza_crust" />
+                app:layout_constraintTop_toTopOf="@+id/label_pizza_crust"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/text_sauce_title"
@@ -167,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:text="Quantity"
+                        android:text="@string/quantity_label"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -189,7 +191,7 @@
                             android:id="@+id/btn_less_pizza"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:text="-"
+                            android:text="@string/minus_sign"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/text_pizza_qty"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -212,7 +214,7 @@
                             android:id="@+id/btn_add_pizza"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:text="+"
+                            android:text="@string/btn_plus_sign"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -227,7 +229,7 @@
                     android:id="@+id/btn_add_to_cart"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Add to cart"
+                    android:text="@string/add_to_cart_button"
                     app:layout_constraintBaseline_toBaselineOf="@+id/quantity_container"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -241,44 +243,4 @@
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--<TextView-->
-    <!--    android:id="@+id/label_quantity"-->
-    <!--    android:layout_width="wrap_content"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--<Button-->
-    <!--    android:id="@+id/btn_less_pizza"-->
-    <!--    android:layout_width="48dp"-->
-    <!--    android:layout_height="48dp"-->
-    <!--    app:layout_constraintStart_toStartOf="@id/label_quantity"-->
-    <!--    android:text="@string/minus_sign" />-->
-
-    <!--<TextView-->
-    <!--    android:id="@+id/text_pizza_qty"-->
-    <!--    android:layout_width="20dp"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--    app:layout_constraintStart_toStartOf="@id/btn_less_pizza"-->
-    <!--    android:textAlignment="center"-->
-    <!--    tools:text="1" />-->
-
-    <!--<Button-->
-    <!--    android:id="@+id/btn_add_pizza"-->
-    <!--    android:layout_width="48dp"-->
-    <!--    android:layout_height="48dp"-->
-    <!--    android:layout_weight="1"-->
-    <!--    android:text="+"-->
-    <!--    app:layout_constraintBaseline_toBaselineOf="@+id/btn_less_pizza" />-->
-
-    <!--<Button-->
-    <!--    android:id="@+id/btn_add_to_cart"-->
-    <!--    android:layout_width="wrap_content"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--    android:text="Add"-->
-    <!--    app:icon="@drawable/ic_add_shopping_cart_24"-->
-    <!--    app:layout_constraintEnd_toEndOf="parent" />-->
-
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-    <!--    app:layout_constraintStart_toStartOf="parent"-->
-    <!--    android:text="Quantity" />-->
 

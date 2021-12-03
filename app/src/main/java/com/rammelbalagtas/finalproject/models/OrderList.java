@@ -1,17 +1,11 @@
 package com.rammelbalagtas.finalproject.models;
 
-import com.rammelbalagtas.finalproject.helper.DataPersistence;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class OrderList implements Serializable {
 
-    private ArrayList<Order> orders;
-
-    public OrderList(ArrayList<Order> orders) {
-        this.orders = orders;
-    }
+    private final ArrayList<Order> orders;
 
     public OrderList() {
         this.orders = new ArrayList<>();

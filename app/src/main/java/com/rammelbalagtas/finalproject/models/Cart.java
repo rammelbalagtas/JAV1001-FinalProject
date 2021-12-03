@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cart implements Serializable {
-    private ArrayList<Pizza> pizzaList;
+    private final ArrayList<Pizza> pizzaList;
     private double subTotal;
     private double tax;
     private double total;

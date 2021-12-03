@@ -24,4 +24,11 @@
     <string name="quantity_initial">1</string>
     <string name="add_to_cart_text">Add to Cart</string>
     <string name="save_text">Save</string>
+    <string name="size_label">Size</string>
+    <string name="crust_label">Crust</string>
+    <string name="quantity_label">Quantity</string>
+    <string name="add_to_cart_button">Add to cart</string>
+    <string name="choose_pizza_header">Choose pizza size and crust:</string>
+    <string name="view_button_text">View</string>
+    <string name="cancel_button_text">Cancel</string>
 </resources>

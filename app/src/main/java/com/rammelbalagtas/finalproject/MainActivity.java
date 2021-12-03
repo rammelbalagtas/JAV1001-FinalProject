@@ -11,9 +11,7 @@ import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.models.Cart;
 import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -45,14 +43,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
         return true;
-//        getMenuInflater().inflate(R.menu.options_menu, menu);
-//        MenuItem item = menu.findItem(R.id.view_cart);
-//        MenuItemCompat.setActionView(item, R.layout.view_cart_action_layout);
-//        ConstraintLayout notifCount = (ConstraintLayout) MenuItemCompat.getActionView(item);
-//        TextView tv = notifCount.findViewById(R.id.cart_itemcount_text);
-//        tv.setText("(12)");
-//        return super.onCreateOptionsMenu(menu);
-    };
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -37,14 +37,9 @@ public class HomeFragment extends Fragment {
     /**
      * custom pizza onClick listener
      */
-    private final View.OnClickListener onClickCustomPizza = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Navigation.findNavController(view)
-                    .navigate(HomeFragmentDirections.
-                            actionNavHomeToCustomizePizza(getResources().getString(R.string.build_your_own), DisplayMode.NEW, (float) PizzaDataConfiguration.pizzaBasePrice));
-        }
-    };
+    private final View.OnClickListener onClickCustomPizza = view -> Navigation.findNavController(view)
+            .navigate(HomeFragmentDirections.
+                    actionNavHomeToCustomizePizza(getResources().getString(R.string.build_your_own), DisplayMode.NEW, (float) PizzaDataConfiguration.pizzaBasePrice));
 
     /**
      * special pizza onClick listener

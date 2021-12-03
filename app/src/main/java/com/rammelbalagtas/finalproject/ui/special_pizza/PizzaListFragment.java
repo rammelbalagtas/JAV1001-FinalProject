@@ -17,6 +17,7 @@ import com.rammelbalagtas.finalproject.adapter.PizzaListAdapter;
 import com.rammelbalagtas.finalproject.helper.PizzaDataConfiguration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PizzaListFragment extends Fragment {
 
@@ -30,7 +31,7 @@ public class PizzaListFragment extends Fragment {
     }
 
     private void setInitialData() {
-        for (Pizza pizza: PizzaDataConfiguration.pizzaSpecials) pizzaList.add(pizza);
+        Collections.addAll(pizzaList, PizzaDataConfiguration.pizzaSpecials);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,

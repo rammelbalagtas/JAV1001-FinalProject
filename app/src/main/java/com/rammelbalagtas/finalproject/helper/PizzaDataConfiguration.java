@@ -41,9 +41,7 @@ public class PizzaDataConfiguration {
     }
 
     public static String buildToppingDescription(Pizza pizza) {
-        String description = "";
-
-        description = "Sauce: ";
+        String description = "Sauce: ";
         for (Sauce sauce : pizza.getSauceList()) {
             if (!sauce.getLevel().equals("None")) {
                 description = description + " " + sauce.getName();

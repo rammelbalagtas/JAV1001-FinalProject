@@ -33,6 +33,7 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -84,9 +85,9 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textName;
-        private TextView textDescription;
-        private ImageView pizzaImage;
+        private final TextView textName;
+        private final TextView textDescription;
+        private final ImageView pizzaImage;
 
         public ViewHolder(@NonNull View view) {
             super(view);

@@ -16,9 +16,9 @@ public class Pizza implements Serializable {
     private int quantity;
     private double price;
 
-    private ArrayList<Sauce> sauceList = new ArrayList<>();
-    private ArrayList<Meat> meatList = new ArrayList<>();
-    private ArrayList<Vegetable> vegetableList = new ArrayList<>();
+    private final ArrayList<Sauce> sauceList = new ArrayList<>();
+    private final ArrayList<Meat> meatList = new ArrayList<>();
+    private final ArrayList<Vegetable> vegetableList = new ArrayList<>();
 
     public Pizza() {
         // empty constructor
@@ -76,10 +76,6 @@ public class Pizza implements Serializable {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public void setSize(String size) {
         this.size = size;
     }
@@ -94,39 +90,5 @@ public class Pizza implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public void setSauceList(ArrayList<Sauce> sauceList) {
-        this.sauceList = sauceList;
-    }
-
-    public void setMeatList(ArrayList<Meat> meatList) {
-        this.meatList = meatList;
-    }
-
-    public void setVegetableList(ArrayList<Vegetable> vegetableList) {
-        this.vegetableList = vegetableList;
-    }
-
-    public String buildToppingText() {
-        String text = "";
-        for (Sauce sauce : sauceList) {
-            if (!sauce.getLevel().equals("None")) {
-                text = text + " " + sauce.getName();
-            }
-        }
-
-        for (Meat meat : meatList) {
-            if (!meat.getLevel().equals("None")) {
-                text = text + " " + meat.getName();
-            }
-        }
-
-        for (Vegetable vegetable : vegetableList) {
-            if (!vegetable.getLevel().equals("None")) {
-                text = text + " " + vegetable.getName();
-            }
-        }
-        return text;
     }
 }

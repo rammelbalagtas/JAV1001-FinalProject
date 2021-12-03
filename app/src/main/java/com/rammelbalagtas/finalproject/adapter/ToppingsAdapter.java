@@ -61,8 +61,8 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textToppingName;
-        private TextView textToppingLevel;
+        private final TextView textToppingName;
+        private final TextView textToppingLevel;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -85,7 +85,7 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
             return textToppingLevel;
         }
 
-        private View.OnClickListener onClickMoreTopping = new View.OnClickListener() {
+        private final View.OnClickListener onClickMoreTopping = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = getLayoutPosition(); //starts with 0
@@ -94,9 +94,7 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
                 // contents of the view with that element
                 String currentTopping = topping.getLevel();
                 int index = Arrays.asList(PizzaDataConfiguration.toppingLevel).indexOf(currentTopping);
-                if (index == (PizzaDataConfiguration.toppingLevel.length - 1)) {
-                    //
-                } else {
+                if (index != (PizzaDataConfiguration.toppingLevel.length - 1)) {
                     index++;
                 }
                 String newTopping = PizzaDataConfiguration.toppingLevel[index];
@@ -105,7 +103,7 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
             }
         };
 
-        private View.OnClickListener onClickLessTopping = new View.OnClickListener() {
+        private final View.OnClickListener onClickLessTopping = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = getLayoutPosition(); //starts with 0
@@ -114,9 +112,7 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
                 // contents of the view with that element
                 String currentTopping = topping.getLevel();
                 int index = Arrays.asList(PizzaDataConfiguration.toppingLevel).indexOf(currentTopping);
-                if (index == 0) {
-                    //
-                } else {
+                if (index != 0) {
                     index--;
                 }
                 String newTopping = PizzaDataConfiguration.toppingLevel[index];
