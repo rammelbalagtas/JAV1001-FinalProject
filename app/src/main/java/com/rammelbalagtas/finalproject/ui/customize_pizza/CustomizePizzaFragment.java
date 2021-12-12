@@ -44,6 +44,8 @@ public class CustomizePizzaFragment extends Fragment {
     private Cart cart;
     private Order order;
     private int pizzaIndex;
+    private Button btnAddPizza;
+    private Button btnLessPizza;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,25 @@ public class CustomizePizzaFragment extends Fragment {
         configureVegetableRecycler();
         configureSpinnerElements();
         setEventListeners();
+        setQtyButtons();
         return rootView;
+    }
+
+    /**
+     * Enable/Disable Add/Minus quantity buttons
+     */
+    private void setQtyButtons() {
+        if (currentPizza.getQuantity() > PizzaDataConfiguration.minPizzaQuantity) {
+            btnLessPizza.setEnabled(true);
+            if (currentPizza.getQuantity() < PizzaDataConfiguration.maxPizzaQuantity) {
+                btnAddPizza.setEnabled(true);
+            } else {
+                btnAddPizza.setEnabled(false);
+            }
+        } else {
+            btnLessPizza.setEnabled(false);
+            btnAddPizza.setEnabled(true);
+        }
     }
 
     @Override
@@ -170,9 +190,9 @@ public class CustomizePizzaFragment extends Fragment {
     private void setEventListeners() {
         Button btnAddToCart = rootView.findViewById(R.id.btn_add_to_cart);
         btnAddToCart.setOnClickListener(onClickAddSaveOrder);
-        Button btnAddPizza = rootView.findViewById(R.id.btn_add_pizza);
+        btnAddPizza = rootView.findViewById(R.id.btn_add_pizza);
         btnAddPizza.setOnClickListener(onClickAddPizza);
-        Button btnLessPizza = rootView.findViewById(R.id.btn_less_pizza);
+        btnLessPizza = rootView.findViewById(R.id.btn_less_pizza);
         btnLessPizza.setOnClickListener(onClickLessPizza);
     }
 
@@ -245,6 +265,7 @@ public class CustomizePizzaFragment extends Fragment {
             quantity++;
             currentPizza.setQuantity(quantity);
             quantityText.setText(String.valueOf(quantity));
+            setQtyButtons();
         }
     };
 
@@ -257,6 +278,7 @@ public class CustomizePizzaFragment extends Fragment {
             quantity--;
             currentPizza.setQuantity(quantity);
             quantityText.setText(String.valueOf(quantity));
+            setQtyButtons();
         }
     };
 
