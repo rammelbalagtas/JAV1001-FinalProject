@@ -36,5 +36,7 @@
     <string name="choose_pizza_header">Choose pizza size and crust:</string>
     <string name="view_button_text">View</string>
     <string name="cancel_button_text">Cancel</string>
+    <string name="pizza_size_content_description">This is a dropdown field to select pizza size</string>
+    <string name="pizza_crust_content_description">This is a dropdown field to select pizza crust</string>
 
 </resources>

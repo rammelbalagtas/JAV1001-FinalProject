@@ -43,6 +43,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:contentDescription="@string/build_your_own_pizza_content"
+            android:focusableInTouchMode="true"
             android:scaleType="fitXY"
             android:src="@drawable/custom_pizza"
             app:layout_constraintStart_toStartOf="parent"
