@@ -1,10 +1,13 @@
 package com.rammelbalagtas.finalproject;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -12,7 +15,10 @@ import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.models.Cart;
 import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -37,35 +43,6 @@ public class MainActivity extends AppCompatActivity {
                 appBarConfiguration);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navView, navController);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        if (item.getItemId() == R.id.view_cart) {
-
-            displayCart();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void displayCart() {
-        Cart cart = DataPersistence.getCartSF(getApplicationContext());
-        if (cart.getPizzaList().size() == 0) {
-            Toast.makeText(getApplicationContext(), "Your cart is currently empty", Toast.LENGTH_SHORT).show();
-        } else {
-            Navigation.findNavController(this, R.id.nav_host_fragment).
-                    navigate(HomeFragmentDirections.actionNavToOrderSummary(null, 0));
-        }
     }
 
     // Need to be implemented to support navigate back functionality

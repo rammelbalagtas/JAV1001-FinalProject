@@ -2,6 +2,9 @@ package com.rammelbalagtas.finalproject.ui.customize_pizza;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rammelbalagtas.finalproject.MainActivity;
 import com.rammelbalagtas.finalproject.helper.DataPersistence;
 import com.rammelbalagtas.finalproject.helper.DisplayMode;
 import com.rammelbalagtas.finalproject.R;
@@ -91,6 +95,7 @@ public class CustomizePizzaFragment extends Fragment {
         configureSpinnerElements();
         setEventListeners();
         setQtyButtons();
+        setHasOptionsMenu(true);
         return rootView;
     }
 

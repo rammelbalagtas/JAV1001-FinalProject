@@ -87,10 +87,6 @@
                 app:argType="integer"
                 android:defaultValue="0"/>
         </action>
-        <action
-            android:id="@+id/action_nav_to_order_summary"
-            app:destination="@id/navigation_order_summary"
-            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/customize_pizza_fragment"
