@@ -36,58 +36,48 @@ public class Pizza implements Serializable {
         this.quantity = quantity;
     }
 
+    // getter methods
     public String getName() {
         return name;
     }
-
     public String getDescription() {
         return description;
     }
-
     public String getSize() {
         return size;
     }
-
     public String getCrust() {
         return crust;
     }
-
     public int getQuantity() {
         return quantity;
     }
-
     public double getPrice() {
         return price;
     }
-
     public ArrayList<Sauce> getSauceList() {
         return sauceList;
     }
-
     public ArrayList<Meat> getMeatList() {
         return meatList;
     }
-
     public ArrayList<Vegetable> getVegetableList() {
         return vegetableList;
     }
 
+    // setter methods
     public void setName(String name) {
         this.name = name;
     }
-
     public void setSize(String size) {
         this.size = size;
     }
-
     public void setCrust(String crust) {
         this.crust = crust;
     }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }

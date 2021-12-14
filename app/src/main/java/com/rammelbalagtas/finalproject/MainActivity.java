@@ -1,24 +1,8 @@
 package com.rammelbalagtas.finalproject;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.rammelbalagtas.finalproject.helper.DataPersistence;
-import com.rammelbalagtas.finalproject.models.Cart;
-import com.rammelbalagtas.finalproject.ui.home.HomeFragmentDirections;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -45,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    // Need to be implemented to support navigate back functionality
+    /**
+     * Needs to be implemented to support navigate back functionality
+     **/
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

@@ -217,7 +217,10 @@ public class CustomizePizzaFragment extends Fragment {
                         .show();
             } else {
                 if (displayMode.equals(DisplayMode.EDIT_PIZZA_CART)) {
+                    cart.computeTotal();
                     DataPersistence.saveCartSF(cart, requireContext());
+                } else if (displayMode.equals(DisplayMode.EDIT_PIZZA_ORDER)) {
+                    order.computeTotal();
                 }
                 Navigation.findNavController(rootView).navigateUp();
             }

@@ -10,6 +10,7 @@ public class Order implements Serializable {
     private double subTotal;
     private double tax;
     private double total;
+    private final double taxRate = 0.13;
 
     public Order(int orderId) {
         this.orderId = orderId;
@@ -48,32 +49,27 @@ public class Order implements Serializable {
         this.total = total;
     }
 
-    public void addPizza(Pizza pizza) {
-        pizzaList.add(pizza);
-        computeTotal();
-    }
-
     public void removePizza(int index) {
         pizzaList.remove(index);
-        computeTotal();
+        if (!pizzaList.isEmpty()) {
+            computeTotal();
+        } else {
+            initTotal();
+        }
     }
 
-    private void computeTotal() {
-
+    public void computeTotal() {
+        initTotal();
+        for (Pizza pizza: pizzaList) {
+            subTotal = subTotal + (pizza.getPrice() * pizza.getQuantity());
+        }
+        tax = subTotal * taxRate;
+        total = subTotal + tax;
     }
 
-//    private void updateTotal(Pizza pizza, String action){
-//        double tempSubTotal = (pizza.getPrice() * pizza.getQuantity());
-//        double tempTax = tempSubTotal * taxRate;
-//        if (action.equals("Add")) {
-//            subTotal += tempSubTotal;
-//            tax += tempTax;
-//            total = total + tempSubTotal + tempTax;
-//        } else {
-//            subTotal -= tempSubTotal;
-//            tax -= tempTax;
-//            total = total - tempSubTotal - tempTax;
-//        }
-//    }
-
+    public void initTotal() {
+        subTotal = 0.0;
+        tax = 0.0;
+        total = 0.0;
+    }
 }

@@ -41,7 +41,7 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         super.onCreate(savedInstanceState);
         order = OrderSummaryFragmentArgs.fromBundle(getArguments()).getArgOrderObject();
         orderIndex = OrderSummaryFragmentArgs.fromBundle(getArguments()).getArgOrderIndex();
-        if (order == null) { //if order object is null, means the user is accessing the Cart
+        if (order == null) { //if order object is null, means the user is accessing the Cart object
             cart = DataPersistence.getCartSF(requireContext());
         }
     }
@@ -85,10 +85,16 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         recycler.setAdapter(adapter);
     }
 
+    /**
+     * Set event listeners
+     */
     private void setEventListeners() {
         binding.btnCheckoutUpdate.setOnClickListener(onClickCheckOutUpdate);
     }
 
+    /**
+     * Update elements displaying amount
+     */
     private void setTotalValues() {
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         if (order == null) {
@@ -108,9 +114,13 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         binding = null;
     }
 
+    /**
+     * Handler method for checkout/update button
+     */
     private final View.OnClickListener onClickCheckOutUpdate = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            // create an order object from cart details
             if (cart != null) {
                 // Create a new order
                 order = new Order(PizzaDataConfiguration.generateOrderId());
@@ -141,6 +151,10 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         }
     };
 
+    /**
+     * Handler for Edit button
+     * @param position
+     */
     @Override
     public void edit(int position) {
         // pass pizza object and navigate to next view
@@ -155,6 +169,10 @@ public class OrderSummaryFragment extends Fragment implements IOrderSummary {
         }
     }
 
+    /**
+     * Handler for Remove button
+     * @param position
+     */
     public void remove(int position) {
         if (order == null) {
             cart.removePizza(position);

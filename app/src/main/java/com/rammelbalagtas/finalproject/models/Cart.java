@@ -12,9 +12,7 @@ public class Cart implements Serializable {
 
     public Cart() {
         pizzaList = new ArrayList<>();
-        subTotal = 0.0;
-        tax = 0.0;
-        total = 0.0;
+        initTotal();
     }
 
     public ArrayList<Pizza> getPizzaList() {
@@ -32,33 +30,31 @@ public class Cart implements Serializable {
 
     public void addPizza(Pizza pizza) {
         pizzaList.add(pizza);
-        updateTotal(pizza, "Add");
+        computeTotal();
     }
 
     public void removePizza(int index) {
-        updateTotal(pizzaList.get(index), "Delete");
         pizzaList.remove(index);
+        if (!pizzaList.isEmpty()) {
+            computeTotal();
+        } else {
+            initTotal();
+        }
     }
 
-    private void computeTotal() {
+    public void computeTotal() {
+        initTotal();
         for (Pizza pizza: pizzaList) {
-            subTotal += (pizza.getPrice() * pizza.getQuantity());
+            subTotal = subTotal + (pizza.getPrice() * pizza.getQuantity());
         }
         tax = subTotal * taxRate;
         total = subTotal + tax;
     }
 
-    private void updateTotal(Pizza pizza, String action){
-        double tempSubTotal = (pizza.getPrice() * pizza.getQuantity());
-        double tempTax = tempSubTotal * taxRate;
-        if (action.equals("Add")) {
-            subTotal += tempSubTotal;
-            tax += tempTax;
-            total = total + tempSubTotal + tempTax;
-        } else {
-            subTotal -= tempSubTotal;
-            tax -= tempTax;
-            total = total - tempSubTotal - tempTax;
-        }
+    public void initTotal() {
+        subTotal = 0.0;
+        tax = 0.0;
+        total = 0.0;
     }
+
 }
