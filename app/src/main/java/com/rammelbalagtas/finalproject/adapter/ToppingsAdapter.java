@@ -31,6 +31,7 @@ public class ToppingsAdapter<T extends Topping> extends RecyclerView.Adapter<Top
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public ToppingsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item

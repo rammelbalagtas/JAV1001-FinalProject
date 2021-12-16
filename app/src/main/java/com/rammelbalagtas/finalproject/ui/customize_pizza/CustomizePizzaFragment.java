@@ -220,8 +220,6 @@ public class CustomizePizzaFragment extends Fragment {
                 }
                 Navigation.findNavController(rootView).navigateUp();
             }
-        } else {
-            return;
         }
     };
 
