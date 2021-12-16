@@ -117,7 +117,9 @@ public class PizzaListAdapter extends RecyclerView.Adapter<PizzaListAdapter.View
                 Navigation.findNavController(view)
                         .navigate(PizzaListFragmentDirections.
                                 actionNavSpecialsToCustomizePizza
-                                        (pizzaList.get(position).getName(), DisplayMode.NEW, (float) PizzaDataConfiguration.pizzaSpecials[1].getPrice()));
+                                        (pizzaList.get(position).getName(),
+                                                DisplayMode.NEW, (float)
+                                                        PizzaDataConfiguration.pizzaSpecials[1].getPrice()));
             }
         };
     }
